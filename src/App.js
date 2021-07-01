@@ -13,35 +13,109 @@ class App extends Component{
 
   constructor() {
     super()
+    this.state = {
+      userid:"",
+      trips:[],
+      markers: []
+    }
+  }
 
+  getUserData = () => {
+    fetch("http://localhost:3000/getuser",
+    {headers:{
+      "Authorization":`Bearer ${localStorage.token}`
+    }})
+    .then((r) => r.json())
+    .then((user) => {
+      this.setState({
+        userId: user.id,
+        trips: user.trips,
+        markers: user.markers
+      })
+    })
+  }
+
+  logoutHandler = () => {
+    localStorage.clear()
+    window.location.reload()
+  }
+
+  getMarkers = (user) => {
+    console.log(user)
+  }
+
+  setUserId = (id) => {
+    console.log("set user",id)
+  }
+
+  componentDidMount(){
+    if (localStorage.token) {
+      this.getUserData()
+    } 
   }
 
   render() {
     return(
-      <Router>
-        <div>
-          <Route exact path="/createmarker"
-            render={(routerProps) => <CreateMarkerContainer/>}/>
+      <div>
+        <button onClick = {this.logoutHandler}>logout</button>
+        <Router>
 
-          <Route exact path="/createtrip"
-            render={(routerProps) => <CreateTripContainer/>}/>
+          <ul>
+            <li>
+              <Link to="/">main map</Link>
+            </li>
+            <li>
+              <Link to="createmarker">create marker</Link>
+            </li>
+            <li>
+              <Link to="createtrip">create trip</Link>
+            </li>
+            <li>
+              <Link to="mytrips">my trips</Link>
+            </li>
+            <li>
+              <Link to="suggestedtrips">suggested trips</Link>
+            </li>
+            <li>
+              <Link to="tripdetails">trip details</Link>
+            </li>
+          </ul>
 
-          <Route exact path="/"
-            render={(routerProps) => <LoginContainer/>}/>
 
-          <Route exact path="/Mainmap"
-            render={(routerProps) => <MainMapContainer/>}/>
+          <Switch>
+            <Route path="/createmarker"
+              render={(routerProps) => localStorage.token 
+              ? <CreateMarkerContainer/> 
+              : null}/>
 
-          <Route exact path="/mytrips"
-            render={(routerProps) => <MyTripsContainer/>}/>
+            <Route path="/createtrip"
+              render={(routerProps) => localStorage.token 
+              ? <CreateTripContainer/> 
+              : null}/>
 
-          <Route exact path="/suggestedtrips"
-            render={(routerProps) => <SuggestedTripsContainer/>}/>
+            <Route exact path="/"
+              render={(routerProps) => localStorage.token 
+              ? <MainMapContainer  
+              markers = {this.state.markers}/> 
+              : <LoginContainer setUserId = {this.setUserId}/>}/>
 
-          <Route exact path="/tripdetails"
-            render={(routerProps) => <TripContainer/>}/>
-        </div>
-      </Router>
+            <Route path="/mytrips"
+              render={(routerProps) => localStorage.token 
+              ? <MyTripsContainer/> 
+              : null}/>
+
+            <Route path="/suggestedtrips"
+              render={(routerProps) => localStorage.token 
+              ? <SuggestedTripsContainer/> 
+              : null}/>
+
+            <Route path="/tripdetails"
+              render={(routerProps) => localStorage.token 
+              ? <TripContainer/> 
+              : null}/>
+          </Switch>
+        </Router>
+      </div>
     )
   }
 }
