@@ -30,11 +30,15 @@ const MapComponent = (props) => {
             <ReactMapGl {...viewport} 
                 mapboxApiAccessToken = {process.env.REACT_APP_MAPBOX_TOKEN}
                 // mapStyle = "mapbox://styles/sean-ottomanelli/ckqjw73i70wgc17qsreljy7t8"
+                onClick = {(map) => {
+                    props.setNewLat(map.lngLat[1])
+                    props.setNewLng(map.lngLat[0])
+                }}
                 onViewportChange = {(viewport) => {
                     setViewport(viewport);
                 }}>
-                {props.markers.map((location) => (
-                    <Marker key = {location.id} latitude = {location.attraction_latitude} longitude = {location.attraction_longitude}>
+                {props.filteredMarkers.map((location) => (
+                    <Marker key = {location.id} latitude = {location.latitude} longitude = {location.longitude}>
                         <button 
                         style = {{"background":"none", "border":"none"}}
                         onClick = {e => {
@@ -48,13 +52,13 @@ const MapComponent = (props) => {
 
                 {selectedMarker 
                 ? (<Popup 
-                latitude = {selectedMarker.attraction_latitude} 
-                longitude = {selectedMarker.attraction_longitude}
+                latitude = {selectedMarker.latitude} 
+                longitude = {selectedMarker.longitude}
                 onClose = {() => {
                     setSelectedMarker(null)
                 }}>
                     <div>
-                        <p>{selectedMarker.attraction_name}</p>
+                        <p>{selectedMarker.name}</p>
                     </div>
                 </Popup>) : null }
             </ReactMapGl>
@@ -63,46 +67,3 @@ const MapComponent = (props) => {
 }
 
 export default MapComponent
-
-
-
-
-
-// import React, { Component } from "react";
-// import ReactMapGl from "react-map-gl"
-
-
-
-// export default class MapComponent extends Component {
-
-//     constructor() {
-//         super()
-
-//         this.state = {
-//             latitude: 45.4211,
-//             longitude: -75.6903,
-//             width: "100vw",
-//             height: "100vh",
-//             zoom: 10
-//         }
-//       }
-
-// test = () => {
-//     console.log("token:",process.env.REACT_APP_MAPBOX_TOKEN)
-// }
-
-
-
-//     render() {
-
-//         return (
-//             <div>
-//                 {this.test()}
-//             <ReactMapGl {...this.state} 
-//             mapboxApiAccessToken = {process.env.REACT_APP_MAPBOX_TOKEN}>
-//                 markers here
-//             </ReactMapGl>
-//             </div>
-//         )
-//     }
-// }

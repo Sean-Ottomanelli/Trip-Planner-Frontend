@@ -14,7 +14,7 @@ class App extends Component{
   constructor() {
     super()
     this.state = {
-      userid:"",
+      userId:"",
       trips:[],
       markers: []
     }
@@ -32,6 +32,12 @@ class App extends Component{
         trips: user.trips,
         markers: user.markers
       })
+    })
+  }
+
+  addNewMarker = (markerObj) => {
+    this.setState({
+      markers: [...this.state.markers, markerObj]
     })
   }
 
@@ -96,7 +102,9 @@ class App extends Component{
             <Route exact path="/"
               render={(routerProps) => localStorage.token 
               ? <MainMapContainer  
-              markers = {this.state.markers}/> 
+              markers = {this.state.markers}
+              userId = {this.state.userId}
+              addNewMarker = {this.addNewMarker}/> 
               : <LoginContainer setUserId = {this.setUserId}/>}/>
 
             <Route path="/mytrips"
