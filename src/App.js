@@ -1,25 +1,49 @@
-import logo from './logo.svg';
+import React, {Component} from 'react'
 import './App.css';
+import { BrowserRouter as Router, Switch, Route, Link, withRouter } from "react-router-dom";
+import CreateMarkerContainer from './Containers/CreateMarkerContainer';
+import CreateTripContainer from './Containers/CreateTripContainer';
+import LoginContainer from './Containers/LoginContainer';
+import MainMapContainer from './Containers/MainMapContainer';
+import MyTripsContainer from './Containers/MyTripsContainer';
+import SuggestedTripsContainer from './Containers/SuggestedTripsContainer';
+import TripContainer from './Containers/TripContainer';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component{
+
+  constructor() {
+    super()
+
+  }
+
+  render() {
+    return(
+      <Router>
+        <div>
+          <Route exact path="/createmarker"
+            render={(routerProps) => <CreateMarkerContainer/>}/>
+
+          <Route exact path="/createtrip"
+            render={(routerProps) => <CreateTripContainer/>}/>
+
+          <Route exact path="/"
+            render={(routerProps) => <LoginContainer/>}/>
+
+          <Route exact path="/Mainmap"
+            render={(routerProps) => <MainMapContainer/>}/>
+
+          <Route exact path="/mytrips"
+            render={(routerProps) => <MyTripsContainer/>}/>
+
+          <Route exact path="/suggestedtrips"
+            render={(routerProps) => <SuggestedTripsContainer/>}/>
+
+          <Route exact path="/tripdetails"
+            render={(routerProps) => <TripContainer/>}/>
+        </div>
+      </Router>
+    )
+  }
 }
 
 export default App;
