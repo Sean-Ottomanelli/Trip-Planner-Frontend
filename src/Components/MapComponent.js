@@ -31,8 +31,7 @@ const MapComponent = (props) => {
                 mapboxApiAccessToken = {process.env.REACT_APP_MAPBOX_TOKEN}
                 // mapStyle = "mapbox://styles/sean-ottomanelli/ckqjw73i70wgc17qsreljy7t8"
                 onClick = {(map) => {
-                    props.setNewLat(map.lngLat[1])
-                    props.setNewLng(map.lngLat[0])
+                    props.handleClick(map.lngLat)
                 }}
                 onViewportChange = {(viewport) => {
                     setViewport(viewport);

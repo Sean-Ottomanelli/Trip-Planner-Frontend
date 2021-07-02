@@ -16,7 +16,12 @@ class App extends Component{
     this.state = {
       userId:"",
       trips:[],
-      markers: []
+      markers: [],
+      showCategory: [],
+      showVisited: true,
+      showUnvisited: true,
+      showRating: 1,
+      showUrgency: 1,
     }
   }
 
@@ -34,6 +39,11 @@ class App extends Component{
       })
     })
   }
+  
+  logoutHandler = () => {
+    localStorage.clear()
+    window.location.reload()
+  }
 
   addNewMarker = (markerObj) => {
     this.setState({
@@ -41,17 +51,46 @@ class App extends Component{
     })
   }
 
-  logoutHandler = () => {
-    localStorage.clear()
-    window.location.reload()
+  doesNothing = (coords) => {
+    console.log("I do nothing unless I'm rendered in create new marker")
   }
 
-  getMarkers = (user) => {
-    console.log(user)
+  categorySelect = (e) => {
+    if(!this.state.showCategory.find(category => e.target.value === category)) {
+        this.setState({
+            showCategory: [...this.state.showCategory,e.target.value]
+        })
+    }
+    else {
+        let newCategoryState = this.state.showCategory.filter(category => category != e.target.value)
+        this.setState({
+            showCategory: newCategoryState
+        })
+    }
   }
 
-  setUserId = (id) => {
-    console.log("set user",id)
+  visitedSelect = () => {
+      this.setState({
+          showVisited: !this.state.showVisited
+      })
+  }
+
+  unvisitedSelect = () => {
+      this.setState({
+          showUnvisited: !this.state.showUnvisited
+      })
+  }
+
+  ratingSelect = (e) => {
+      this.setState({
+          showRating: e.target.value
+      })
+  }
+
+  urgencySelect = (e) => {
+      this.setState({
+          showUrgency: e.target.value
+      })
   }
 
   componentDidMount(){
@@ -59,8 +98,50 @@ class App extends Component{
       this.getUserData()
     } 
   }
-
+  
   render() {
+
+    let filteredMarkers = this.state.markers.filter(marker => {
+    let categorySatisfied = false
+    if (this.state.showCategory.length !== 0) {
+      categorySatisfied = this.state.showCategory.some(category => category === marker.category)
+    } else {
+      categorySatisfied = true
+    }
+    
+    let visitedSatisfied = true
+    if (marker.visited === true) {
+      visitedSatisfied = !!this.state.showVisited ? true : false
+    } else {
+      visitedSatisfied = true
+    }
+    
+    let unvisitedSatisfied = true
+    if (marker.visited === false) {
+      unvisitedSatisfied = this.state.showUnvisited ? true : false
+    } else {
+      unvisitedSatisfied = true
+    }
+    
+    let ratingSatisfied = false
+    if (marker.user_rating) {
+      ratingSatisfied = marker.user_rating >= this.state.showRating ? true : false
+    } else {
+      ratingSatisfied = true
+    }
+    
+    let urgencySatisfied = true
+    if (marker.urgency) {
+      urgencySatisfied = marker.urgency >= this.state.showUrgency ? true : false
+    } else {
+      urgencySatisfied = true
+    }
+    
+    if (categorySatisfied && visitedSatisfied && unvisitedSatisfied && ratingSatisfied && urgencySatisfied) {
+      return marker
+    }
+  })
+
     return(
       <div>
         <button onClick = {this.logoutHandler}>logout</button>
@@ -91,7 +172,10 @@ class App extends Component{
           <Switch>
             <Route path="/createmarker"
               render={(routerProps) => localStorage.token 
-              ? <CreateMarkerContainer/> 
+              ? <CreateMarkerContainer 
+              filteredMarkers = {filteredMarkers}
+              userId = {this.state.userId}
+              addNewMarker = {this.addNewMarker}/> 
               : null}/>
 
             <Route path="/createtrip"
@@ -101,12 +185,21 @@ class App extends Component{
 
             <Route exact path="/"
               render={(routerProps) => localStorage.token 
-              ? <MainMapContainer  
+              ? <MainMapContainer 
+              categorySelect = {this.categorySelect} 
+              showCategory = {this.state.showCategory}
+              visitedSelect = {this.visitedSelect} 
+              showVisited = {this.state.showVisited}
+              unvisitedSelect = {this.unvisitedSelect} 
+              showUnvisited = {this.state.showUnvisited}
+              ratingSelect = {this.ratingSelect}
+              showRating = {this.state.showRating}
+              urgencySelect = {this.urgencySelect}
+              showUrgency = {this.state.showUrgency} 
               markers = {this.state.markers}
-              userId = {this.state.userId}
-              addNewMarker = {this.addNewMarker}/> 
-              : <LoginContainer setUserId = {this.setUserId}/>}/>
-
+              filteredMarkers = {filteredMarkers}
+              makeNewMarker = {this.doesNothing}/> 
+              : <LoginContainer/>}/>
             <Route path="/mytrips"
               render={(routerProps) => localStorage.token 
               ? <MyTripsContainer/> 
