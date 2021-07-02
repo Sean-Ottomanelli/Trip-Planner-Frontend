@@ -51,10 +51,6 @@ class App extends Component{
     })
   }
 
-  doesNothing = (coords) => {
-    console.log("I do nothing unless I'm rendered in create new marker")
-  }
-
   categorySelect = (e) => {
     if(!this.state.showCategory.find(category => e.target.value === category)) {
         this.setState({
@@ -180,7 +176,9 @@ class App extends Component{
 
             <Route path="/createtrip"
               render={(routerProps) => localStorage.token 
-              ? <CreateTripContainer/> 
+              ? <CreateTripContainer
+              markers = {this.state.markers}
+              filteredMarkers = {filteredMarkers}/> 
               : null}/>
 
             <Route exact path="/"
@@ -197,12 +195,14 @@ class App extends Component{
               urgencySelect = {this.urgencySelect}
               showUrgency = {this.state.showUrgency} 
               markers = {this.state.markers}
-              filteredMarkers = {filteredMarkers}
-              makeNewMarker = {this.doesNothing}/> 
+              filteredMarkers = {filteredMarkers}/> 
               : <LoginContainer/>}/>
+
             <Route path="/mytrips"
               render={(routerProps) => localStorage.token 
-              ? <MyTripsContainer/> 
+              ? <MyTripsContainer
+              filteredMarkers = {filteredMarkers}
+              trips = {this.state.trips}/> 
               : null}/>
 
             <Route path="/suggestedtrips"

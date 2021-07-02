@@ -14,19 +14,13 @@ export default class MainMapContainer extends Component {
         }
     }
 
+    doNothing = () => {}
+
     render() {
 
         return (
             <div>
-                <Link to="/createmarker">
-                    <p>Add New Marker</p>
-                </Link>
-                <Link to="/createtrip">
-                    <p>Create New Trip</p>
-                </Link>
-                <Link to="/createtrip">
-                    <p>See Suggested Trips</p>
-                </Link>
+
 
                 <FilterComponent 
                 categorySelect = {this.props.categorySelect} 
@@ -39,10 +33,24 @@ export default class MainMapContainer extends Component {
                 showRating = {this.props.showRating}
                 urgencySelect = {this.props.urgencySelect}
                 showUrgency = {this.props.showUrgency}/>
+
+                
+                <Link to="/createmarker">
+                    <button>Add New Marker</button>
+                </Link>
+                <Link to="/createtrip">
+                    <button>Create New Trip</button>
+                </Link>
+                <Link to="/createtrip">
+                    <button>See Suggested Trips</button>
+                </Link>
+
                 
                 <MapComponent 
-                makeNewMarker = {this.props.makeNewMarker}  
+                handleClick = {this.doNothing}  
                 filteredMarkers = {this.props.filteredMarkers}/>
+                
+
             </div>
         )
     }

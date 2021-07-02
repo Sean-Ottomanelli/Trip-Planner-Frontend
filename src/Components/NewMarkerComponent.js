@@ -20,7 +20,7 @@ export default class NewMarkerComponent extends Component {
                     </div>
                     <div>
                         <label>
-                            Restaurant<input onChange={(e) => this.props.handleInputChange(e)} type = "radio" name = "category" value = "Restuarant"/>
+                            Restaurant<input onChange={(e) => this.props.handleInputChange(e)} type = "radio" name = "category" value = "Restaurant"/>
                         </label>
                         <label>
                             Attraction<input onChange={(e) => this.props.handleInputChange(e)} type = "radio" name = "category" value = "Attraction"/>
@@ -41,7 +41,7 @@ export default class NewMarkerComponent extends Component {
                         </label>
                     </div>
                     <div>
-                        {this.state.visited 
+                        {this.props.visited 
                         ? <label>
                             Rating <input onChange={(e) => this.props.handleInputChange(e)} name = "user_rating" type="range" min = {1} max={5}/>
                         </label> 
@@ -49,15 +49,6 @@ export default class NewMarkerComponent extends Component {
                             Urgency <input onChange={(e) => this.props.handleInputChange(e)} name = "urgency" type="range" min = {1} max={5}/>
                         </label>}
                     </div>
-                    {/* <div>
-                        <label>
-                            Latitude:<input value={this.props.newLat} onChange={(e) => this.handleInputChange(e)} name = "latitude"/>
-                        </label>
-                        <label>
-                            Longitude:<input value={this.props.newLng} onChange={(e) => this.handleInputChange(e)} name = "longitude"/>
-                        </label>
-                    </div> */}
-                    {/* <button type="submit">save to map</button> */}
                 </form>
             </div>
         )

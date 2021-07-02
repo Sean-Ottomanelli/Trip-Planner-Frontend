@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import NewMarkerComponent from "../Components/NewMarkerComponent";
 import MapComponent from "../Components/MapComponent";
+import { Link } from "react-router-dom";
 
 export default class CreateMarkerContainer extends Component {
 
@@ -74,15 +75,26 @@ export default class CreateMarkerContainer extends Component {
     render() {
         return (
             <div>
-                <h2>CreateMarkerContainer</h2>
+
+
                 <NewMarkerComponent
                 userId = {this.props.userId}
                 handleInputChange = {this.handleInputChange}
                 handleVisited = {this.handleVisited}
-                handleSubmit = {this.handleSubmit}/>
+                handleSubmit = {this.handleSubmit}
+                visited = {this.state.visited}/>
+
+
+                <Link to = "/">
+                    <button>Back to my map</button>
+                </Link>
+
+
                 <MapComponent 
                 handleClick = {this.handleSubmit}
                 filteredMarkers = {this.props.filteredMarkers}/>
+
+                
             </div>
         )
     }

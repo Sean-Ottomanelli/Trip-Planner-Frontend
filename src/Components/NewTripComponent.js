@@ -10,8 +10,12 @@ export default class NewTripComponent extends Component {
     render() {
         return (
             <div>
-                <h2>NewTripComponent</h2>
-                <p onClick = {this.props.toggleNewTrip}>Cancel</p>
+            <h2>NewTripComponent</h2>
+            <form>
+                <label>
+                    Trip Name<input></input>
+                </label>
+            </form>
             </div>
         )
     }
