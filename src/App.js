@@ -51,6 +51,18 @@ class App extends Component{
     })
   }
 
+  addTripToUser = (tripObj) => {
+    this.setState({
+      trips: [...this.state.trips, tripObj]
+    })
+  }
+
+  addMarkerToUser = (MarkerObj) => {
+    this.setState({
+      trips: ({...this.state.trips,markers: [...this.state.trips.markers, MarkerObj]})
+    })
+  }
+
   categorySelect = (e) => {
     if(!this.state.showCategory.find(category => e.target.value === category)) {
         this.setState({
@@ -177,8 +189,10 @@ class App extends Component{
             <Route path="/createtrip"
               render={(routerProps) => localStorage.token 
               ? <CreateTripContainer
-              markers = {this.state.markers}
-              filteredMarkers = {filteredMarkers}/> 
+              addTripToUser = {this.addTripToUser}
+              addMarkerToUser = {this.addMarkerToUser}
+              userId = {this.state.userId}
+              markers = {this.state.markers}/> 
               : null}/>
 
             <Route exact path="/"

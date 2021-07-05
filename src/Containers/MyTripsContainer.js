@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import ThumbnailMapComponent from "../Components/ThumbnailMapComponent";
+import { Link } from "react-router-dom";
+import TripCardComponent from "../Components/TripCardComponent";
 
 export default class MyTripsContainer extends Component {
 
@@ -12,10 +14,17 @@ export default class MyTripsContainer extends Component {
         return (
             <div>
                 <h2>MyTripsContainer</h2>
-                {this.props.trips.map(trip => <ThumbnailMapComponent
+                <Link to="/">
+                    <button>Back to my map</button>
+                </Link>
+                {this.props.trips.map(trip => <TripCardComponent
                 handleClick = {this.handleClick}
-                filteredMarkers = {trip.markers}/>)}
+                trip = {trip}/>)}
             </div>
         )
     }
 }
+
+{/* <ThumbnailMapComponent
+                handleClick = {this.props.handleClick}
+                filteredMarkers = {trip.markers}/> */}

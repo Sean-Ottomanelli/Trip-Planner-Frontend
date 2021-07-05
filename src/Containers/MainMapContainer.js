@@ -16,6 +16,7 @@ export default class MainMapContainer extends Component {
 
     doNothing = () => {}
 
+
     render() {
 
         return (
@@ -41,6 +42,9 @@ export default class MainMapContainer extends Component {
                 <Link to="/createtrip">
                     <button>Create New Trip</button>
                 </Link>
+                <Link to="/mytrips">
+                    <button>See your trips</button>
+                </Link>
                 <Link to="/createtrip">
                     <button>See Suggested Trips</button>
                 </Link>
@@ -49,7 +53,7 @@ export default class MainMapContainer extends Component {
                 <MapComponent 
                 handleClick = {this.doNothing}  
                 filteredMarkers = {this.props.filteredMarkers}/>
-                
+
 
             </div>
         )

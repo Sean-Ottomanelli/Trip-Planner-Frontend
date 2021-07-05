@@ -40,11 +40,20 @@ const MapComponent = (props) => {
                     <Marker key = {location.id} latitude = {location.latitude} longitude = {location.longitude}>
                         <button 
                         style = {{"background":"none", "border":"none"}}
-                        onClick = {e => {
+                        onMouseOver = {e => {
                             e.preventDefault()
                             setSelectedMarker(location)
-                        }}>
-                            <img src="/MapIcons/mapbox-marker-icon-20px-blue.png"/>
+                        }}
+                        onClick = {props.allowAddToTrip 
+                        ? () => props.addToTrip(location)
+                        : null}>
+        
+                            {!props.selectedDestinations 
+                            ? <img src="/MapIcons/mapbox-marker-icon-20px-blue.png" />
+                            : props.selectedDestinations.some(destination => destination.id === location.id) 
+                            ? <img src="/MapIcons/mapbox-marker-icon-20px-green.png" /> 
+                            : <img src="/MapIcons/mapbox-marker-icon-20px-blue.png" />}
+
                         </button>
                     </Marker>
                 ))}

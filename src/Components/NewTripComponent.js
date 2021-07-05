@@ -11,9 +11,12 @@ export default class NewTripComponent extends Component {
         return (
             <div>
             <h2>NewTripComponent</h2>
-            <form>
+            <form onChange = {(e) => this.props.handleInputChange(e)}>
                 <label>
-                    Trip Name<input></input>
+                    Trip Name<input name = "newTripName" value = {this.props.newTripName}></input>
+                </label>
+                <label>
+                    Trip Description<input name = "newTripDescription" value = {this.props.newTripDescription}></input>
                 </label>
             </form>
             </div>

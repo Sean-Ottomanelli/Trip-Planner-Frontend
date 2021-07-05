@@ -82,7 +82,10 @@ export default class CreateMarkerContainer extends Component {
                 handleInputChange = {this.handleInputChange}
                 handleVisited = {this.handleVisited}
                 handleSubmit = {this.handleSubmit}
-                visited = {this.state.visited}/>
+                visited = {this.state.visited}
+                name = {this.state.name}
+                urgency = {this.state.urgency}
+                user_rating = {this.state.user_rating}/>
 
 
                 <Link to = "/">
@@ -94,7 +97,7 @@ export default class CreateMarkerContainer extends Component {
                 handleClick = {this.handleSubmit}
                 filteredMarkers = {this.props.filteredMarkers}/>
 
-                
+
             </div>
         )
     }

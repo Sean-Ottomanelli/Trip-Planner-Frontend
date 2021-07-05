@@ -15,7 +15,7 @@ export default class NewMarkerComponent extends Component {
                 <form onSubmit = {(e) => this.props.handleSubmit(e)}>
                     <div>
                         <label>
-                            Marker Name:<input onChange={(e) => this.props.handleInputChange(e)} name = "name"/>
+                            Marker Name:<input onChange={(e) => this.props.handleInputChange(e)} name = "name" value = {this.props.name}/>
                         </label>
                     </div>
                     <div>
@@ -43,10 +43,10 @@ export default class NewMarkerComponent extends Component {
                     <div>
                         {this.props.visited 
                         ? <label>
-                            Rating <input onChange={(e) => this.props.handleInputChange(e)} name = "user_rating" type="range" min = {1} max={5}/>
+                            Rating <input onChange={(e) => this.props.handleInputChange(e)} name = "user_rating" type="range" min = {1} max={5} value = {this.props.user_rating}/>
                         </label> 
                         : <label>
-                            Urgency <input onChange={(e) => this.props.handleInputChange(e)} name = "urgency" type="range" min = {1} max={5}/>
+                            Urgency <input onChange={(e) => this.props.handleInputChange(e)} name = "urgency" type="range" min = {1} max={5} value = {this.props.urgency}/>
                         </label>}
                     </div>
                 </form>
