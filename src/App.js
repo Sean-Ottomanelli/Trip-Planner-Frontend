@@ -1,13 +1,14 @@
 import React, {Component} from 'react'
 import './App.css';
 import { BrowserRouter as Router, Switch, Route, Link, withRouter } from "react-router-dom";
-import CreateMarkerContainer from './Containers/CreateMarkerContainer';
+import EditMarkersContainer from './Containers/EditMarkersContainer';
 import CreateTripContainer from './Containers/CreateTripContainer';
 import LoginContainer from './Containers/LoginContainer';
 import MainMapContainer from './Containers/MainMapContainer';
 import MyTripsContainer from './Containers/MyTripsContainer';
 import SuggestedTripsContainer from './Containers/SuggestedTripsContainer';
-import TripContainer from './Containers/TripContainer';
+import EditTripContainer from './Containers/EditTripContainer';
+import ViewTripContainer from './Containers/ViewTripContainer';
 
 class App extends Component{
 
@@ -63,6 +64,30 @@ class App extends Component{
     })
   }
 
+  deleteMarker = (input) => {
+    let updatedMarkers = this.state.markers.filter(marker => marker.id != input.id)
+    this.setState({
+      markers: updatedMarkers
+    })
+  }
+
+  deleteAssociatedDestinations = (input) => {
+
+    let updatedTrips = this.state.trips.map(trip => {
+
+      let markers = trip.markers.filter(marker => marker.id != input.id)
+
+      trip.markers = markers
+
+      return(trip)
+    })
+
+    this.setState({
+      trips: updatedTrips
+    })
+
+  }
+
   categorySelect = (e) => {
     if(!this.state.showCategory.find(category => e.target.value === category)) {
         this.setState({
@@ -104,7 +129,7 @@ class App extends Component{
   componentDidMount(){
     if (localStorage.token) {
       this.getUserData()
-    } 
+    }
   }
   
   render() {
@@ -160,44 +185,52 @@ class App extends Component{
               <Link to="/">main map</Link>
             </li>
             <li>
-              <Link to="createmarker">create marker</Link>
+              <Link to="/editmarkers">edit markers</Link>
             </li>
             <li>
-              <Link to="createtrip">create trip</Link>
+              <Link to="/createtrip">create trip</Link>
             </li>
             <li>
-              <Link to="mytrips">my trips</Link>
+              <Link to="/mytrips">my trips</Link>
             </li>
             <li>
-              <Link to="suggestedtrips">suggested trips</Link>
+              <Link to="/suggestedtrips">suggested trips</Link>
             </li>
             <li>
-              <Link to="tripdetails">trip details</Link>
+              <Link to="/viewtripdetails">view trip details</Link>
+            </li>
+            <li>
+              <Link to="/edittripdetails">edit trip details</Link>
             </li>
           </ul>
 
 
           <Switch>
-            <Route path="/createmarker"
+            <Route path="/editmarkers"
               render={(routerProps) => localStorage.token 
-              ? <CreateMarkerContainer 
+              ? <EditMarkersContainer
+              {...routerProps}
+              deleteAssociatedDestinations = {this.deleteAssociatedDestinations} 
               filteredMarkers = {filteredMarkers}
               userId = {this.state.userId}
-              addNewMarker = {this.addNewMarker}/> 
+              addNewMarker = {this.addNewMarker}
+              deleteMarker = {this.deleteMarker}/> 
               : null}/>
 
             <Route path="/createtrip"
               render={(routerProps) => localStorage.token 
               ? <CreateTripContainer
+              {...routerProps}
               addTripToUser = {this.addTripToUser}
-              addMarkerToUser = {this.addMarkerToUser}
+              // addMarkerToUser = {this.addMarkerToUser}
               userId = {this.state.userId}
               markers = {this.state.markers}/> 
               : null}/>
 
             <Route exact path="/"
               render={(routerProps) => localStorage.token 
-              ? <MainMapContainer 
+              ? <MainMapContainer
+              {...routerProps} 
               categorySelect = {this.categorySelect} 
               showCategory = {this.state.showCategory}
               visitedSelect = {this.visitedSelect} 
@@ -215,18 +248,31 @@ class App extends Component{
             <Route path="/mytrips"
               render={(routerProps) => localStorage.token 
               ? <MyTripsContainer
+              {...routerProps}
               filteredMarkers = {filteredMarkers}
               trips = {this.state.trips}/> 
               : null}/>
 
             <Route path="/suggestedtrips"
               render={(routerProps) => localStorage.token 
-              ? <SuggestedTripsContainer/> 
+              ? <SuggestedTripsContainer
+              {...routerProps}/> 
               : null}/>
 
-            <Route path="/tripdetails"
+            <Route path="/edittripdetails/:tripId"
               render={(routerProps) => localStorage.token 
-              ? <TripContainer/> 
+              ? <EditTripContainer
+              {...routerProps}
+              trips = {this.state.trips}
+              markers = {this.state.markers}/> 
+              : null}/>
+
+            <Route path="/viewtripdetails/:tripId"
+              render={(routerProps) => localStorage.token 
+              ? <ViewTripContainer
+              {...routerProps}
+              trips = {this.state.trips}
+              markers = {this.state.markers}/> 
               : null}/>
           </Switch>
         </Router>

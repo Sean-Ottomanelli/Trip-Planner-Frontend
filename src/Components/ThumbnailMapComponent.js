@@ -24,42 +24,54 @@ const ThumbnailMapComponent = (props) => {
     });
     
     let updateZoom = () => {
-    const vp = new WebMercatorViewport({
-        width: 600,
-        height: 400,
-        longitude: averageLng,
-        latitude: averageLat,
-    });
+        if(props.filteredMarkers.length > 0) {
+            const vp = new WebMercatorViewport({
+                width: 600,
+                height: 400,
+                longitude: averageLng,
+                latitude: averageLat,
+            });
 
-    let {zoom} = vp.fitBounds(
-      [
-        [minLng, minLat],
-        [maxLng, maxLat]
-      ],
-      {
-        padding: 40
-      }
-    );
+            let {zoom} = vp.fitBounds(
+            [
+                [minLng, minLat],
+                [maxLng, maxLat]
+            ],
+            {
+                padding: 40
+            }
+            );
 
-      if(zoom >= 1) {
-        setViewport({
-            ...viewport,
-            zoom: zoom-1,
-          });
-      } else {
-        setViewport({
-            ...viewport,
-            zoom: zoom,
-          });
-      }
-      
+            if(props.filteredMarkers.length === 1) {
+                setViewport({
+                    ...viewport,
+                    zoom: 15,
+                });
+            } else if(zoom <= 1) {
+                setViewport({
+                    ...viewport,
+                    zoom: zoom,
+                });
+            } else {
+                setViewport({
+                    ...viewport,
+                    zoom: zoom-1,
+                });
+            }
+        }
     }
 
     const [selectedMarker, setSelectedMarker] = useState(null);
 
     return(
         <div>
-            <ReactMapGl {...viewport}
+            <ReactMapGl 
+            // {...viewport}
+            latitude = {props.filteredMarkers.length > 0 ? viewport.latitude : 41}
+            longitude = {props.filteredMarkers.length > 0 ? viewport.longitude : -75}
+            width = {viewport.width}
+            height = {viewport.height}
+            zoom = {props.filteredMarkers.length > 0 ? viewport.zoom : 1}
             onLoad = {() => updateZoom()}
                 mapboxApiAccessToken = {process.env.REACT_APP_MAPBOX_TOKEN}>
                 {props.filteredMarkers.map((location) => (

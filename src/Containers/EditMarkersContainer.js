@@ -2,8 +2,9 @@ import React, { Component } from "react";
 import NewMarkerComponent from "../Components/NewMarkerComponent";
 import MapComponent from "../Components/MapComponent";
 import { Link } from "react-router-dom";
+import MarkerCardComponent from "../Components/MarkerCardComponent";
 
-export default class CreateMarkerContainer extends Component {
+export default class EditMarkersContainer extends Component {
 
     constructor() {
         super()
@@ -32,6 +33,20 @@ export default class CreateMarkerContainer extends Component {
         
     makeNewMarker = (input) => {
         console.log(input)
+    }
+
+    handleDelete = (marker) => {
+        fetch(`http://localhost:3000/markers/${marker.id}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization":`Bearer ${localStorage.token}`
+            }})
+            .then(() => {
+                console.log(marker)
+                this.props.deleteMarker(marker)
+                this.props.deleteAssociatedDestinations(marker)
+            })
     }
 
     handleSubmit = (coords) => {
@@ -75,27 +90,38 @@ export default class CreateMarkerContainer extends Component {
     render() {
         return (
             <div>
+                
+
+                <div className = {"column-container"}>
+                    <div className = {"twenty-column"}>
+                        <NewMarkerComponent
+                        userId = {this.props.userId}
+                        handleInputChange = {this.handleInputChange}
+                        handleVisited = {this.handleVisited}
+                        handleSubmit = {this.handleSubmit}
+                        visited = {this.state.visited}
+                        name = {this.state.name}
+                        urgency = {this.state.urgency}
+                        user_rating = {this.state.user_rating}/>
+                         <Link to = "/">
+                            <button>Finish Edits</button>
+                        </Link>
+                    </div>
+
+                    <div className = {"fourty-column"}>
+                        <MapComponent 
+                        handleClick = {this.handleSubmit}
+                        filteredMarkers = {this.props.filteredMarkers}/>
+                    </div>
 
 
-                <NewMarkerComponent
-                userId = {this.props.userId}
-                handleInputChange = {this.handleInputChange}
-                handleVisited = {this.handleVisited}
-                handleSubmit = {this.handleSubmit}
-                visited = {this.state.visited}
-                name = {this.state.name}
-                urgency = {this.state.urgency}
-                user_rating = {this.state.user_rating}/>
-
-
-                <Link to = "/">
-                    <button>Back to my map</button>
-                </Link>
-
-
-                <MapComponent 
-                handleClick = {this.handleSubmit}
-                filteredMarkers = {this.props.filteredMarkers}/>
+                    <div className = {"fourty-column scroll"}>
+                        {this.props.filteredMarkers.map(marker => <MarkerCardComponent
+                        marker = {marker}
+                        handleDelete = {this.handleDelete}
+                        parent = {"createMarkerContainer"}/>)}
+                    </div>
+                </div>
 
 
             </div>

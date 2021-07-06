@@ -19,12 +19,9 @@ export default class MyTripsContainer extends Component {
                 </Link>
                 {this.props.trips.map(trip => <TripCardComponent
                 handleClick = {this.handleClick}
-                trip = {trip}/>)}
+                trip = {trip}/>
+                )}
             </div>
         )
     }
 }
-
-{/* <ThumbnailMapComponent
-                handleClick = {this.props.handleClick}
-                filteredMarkers = {trip.markers}/> */}

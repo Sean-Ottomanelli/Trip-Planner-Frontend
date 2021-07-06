@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 import NewTripComponent from "../Components/NewTripComponent";
-import FilterComponent from "../Components/FilterComponent";
-import NewTripMapComponent from "../Components/NewTripMapComponent";
 import MapComponent from "../Components/MapComponent";
 import { Link } from "react-router-dom";
 import MarkerCardComponent from "../Components/MarkerCardComponent";
@@ -41,6 +39,13 @@ export default class CreateTripContainer extends Component {
         }
     }
 
+    removeFromTrip = (input) => {
+        let updatedDestinations = this.state.destinations.filter(destination => destination.id != input.id)
+        this.setState({
+            destinations: updatedDestinations
+        })
+    }
+
     createDestinations = () => {
 
         this.state.destinations.map(destination => {
@@ -64,10 +69,6 @@ export default class CreateTripContainer extends Component {
 
     }
 
-    doesThisWork = () => {
-        console.log('yes this works')
-    }
-
     createTrip = () => {
 
         let newTrip = {
@@ -86,14 +87,15 @@ export default class CreateTripContainer extends Component {
                 body: JSON.stringify(newTrip),
             })
             .then((r) => r.json())
-            .then((createdTrip) => this.setState({newTripId: createdTrip.id}))
-            .then(() => {
-
+            .then((createdTrip) => {
+                this.setState({newTripId: createdTrip.id})
                 newTrip.markers = this.state.destinations
+                newTrip.id = createdTrip.id
+
+            })
+            .then(() => {
                 this.props.addTripToUser(newTrip)
-                console.log(newTrip)
                 this.createDestinations()
-                
             })
 
     }
@@ -103,33 +105,44 @@ export default class CreateTripContainer extends Component {
             <div>
 
 
-                <NewTripComponent
-                handleInputChange = {this.handleInputChange}
-                newTripName = {this.state.newTripName}
-                newTripDescription = {this.newTripDescription}/>
+                
 
 
-                {this.state.destinations.map(destination => <MarkerCardComponent destination = {destination}/>)}
+                <div className = "column-container">
+                    <div className = {"twenty-column"}>
+                        <NewTripComponent
+                        handleInputChange = {this.handleInputChange}
+                        newTripName = {this.state.newTripName}
+                        newTripDescription = {this.newTripDescription}/>
+                        <Link to="/">
+                        <button onClick = {this.createTrip}>Create Trip</button>
+                        </Link>
+                        <Link to="/">
+                        <button>Cancel</button>
+                        </Link>
+                    </div>
+
 
                 
-                <button onClick = {this.createTrip}>Create Trip</button>
+                    <div className = {"fourty-column"}>
+                        <MapComponent
+                        selectedDestinations = {this.state.destinations}
+                        addToTrip = {this.handleMarkerSelect} 
+                        allowAddToTrip = {true}
+                        handleClick = {this.doNothing}  
+                        filteredMarkers = {this.props.markers}/>
+                    </div>
 
+                    
+                    <div className = {"fourty-column"}>
+                        {this.state.destinations.map(marker => <MarkerCardComponent 
+                        marker = {marker}
+                        handleDelete = {this.removeFromTrip}
+                        parent = {"createTripContainer"}/>)}
+                    </div>
+                </div>
 
-                <Link to="/">
-                    <button>Back to my map</button>
-                </Link>
             
-                
-                <MapComponent
-                selectedDestinations = {this.state.destinations}
-                addToTrip = {this.handleMarkerSelect} 
-                allowAddToTrip = {true}
-                handleClick = {this.doNothing}  
-                filteredMarkers = {this.props.markers}/>
-
-
-            
-
             </div>
 
         )

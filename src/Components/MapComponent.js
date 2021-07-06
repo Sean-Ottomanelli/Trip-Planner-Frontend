@@ -6,7 +6,7 @@ const MapComponent = (props) => {
     const [viewport, setViewport] = useState({
         latitude: 45.4211,
         longitude: -75.6903,
-        width: "100vw",
+        width: "100%",
         height: "100vh",
         zoom: 1
     });
@@ -39,7 +39,7 @@ const MapComponent = (props) => {
                 {props.filteredMarkers.map((location) => (
                     <Marker key = {location.id} latitude = {location.latitude} longitude = {location.longitude}>
                         <button 
-                        style = {{"background":"none", "border":"none"}}
+                        style = {{"background":"none", "border":"none", "padding":"0px"}}
                         onMouseOver = {e => {
                             e.preventDefault()
                             setSelectedMarker(location)

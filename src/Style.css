@@ -1,0 +1,27 @@
+.fifty-fifty-column{
+    border: black 1px solid;
+    width: 48%;
+    height: 100vh;
+}
+
+.twenty-column{
+    border: black 1px solid;
+    width: 18vw;
+    height: 100vh;
+    margin: 1px;
+}
+
+.fourty-column{
+    border: black 1px solid;
+    width: 38vw;
+    height: 100vh;
+    margin: 1px
+}
+
+.scroll{
+    overflow: scroll;
+}
+
+.column-container{
+    display: flex;
+}
