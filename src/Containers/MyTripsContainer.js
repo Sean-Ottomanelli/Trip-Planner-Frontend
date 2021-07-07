@@ -11,13 +11,17 @@ export default class MyTripsContainer extends Component {
     }
 
     render() {
+
+        let reversedTrips = this.props.trips.reverse()
+
         return (
             <div>
-                <h2>MyTripsContainer</h2>
+                <h2>My Trips</h2>
                 <Link to="/">
-                    <button>Back to my map</button>
+                    <button>Return to My Map</button>
                 </Link>
-                {this.props.trips.map(trip => <TripCardComponent
+                {reversedTrips.map(trip => <TripCardComponent
+                deleteTrip = {this.props.deleteTrip}
                 handleClick = {this.handleClick}
                 trip = {trip}/>
                 )}

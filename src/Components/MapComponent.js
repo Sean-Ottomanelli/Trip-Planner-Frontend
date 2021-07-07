@@ -7,7 +7,7 @@ const MapComponent = (props) => {
         latitude: 45.4211,
         longitude: -75.6903,
         width: "100%",
-        height: "100vh",
+        height: "90vh",
         zoom: 1
     });
     const [selectedMarker, setSelectedMarker] = useState(null);
@@ -49,10 +49,10 @@ const MapComponent = (props) => {
                         : null}>
         
                             {!props.selectedDestinations 
-                            ? <img src="/MapIcons/mapbox-marker-icon-20px-blue.png" />
+                            ? <img src="/MapIcons/mapbox-marker-icon-blue.svg" />
                             : props.selectedDestinations.some(destination => destination.id === location.id) 
-                            ? <img src="/MapIcons/mapbox-marker-icon-20px-green.png" /> 
-                            : <img src="/MapIcons/mapbox-marker-icon-20px-blue.png" />}
+                            ? <img src="/MapIcons/mapbox-marker-icon-green.svg" /> 
+                            : <img src="/MapIcons/mapbox-marker-icon-blue.svg" />}
 
                         </button>
                     </Marker>

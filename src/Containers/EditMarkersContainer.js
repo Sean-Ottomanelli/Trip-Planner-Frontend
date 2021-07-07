@@ -94,6 +94,8 @@ export default class EditMarkersContainer extends Component {
 
                 <div className = {"column-container"}>
                     <div className = {"twenty-column"}>
+                        <h2>EDIT MARKERS</h2>
+                        <p>Fill in all of the fields below and click a location on the map to place a marker.</p>
                         <NewMarkerComponent
                         userId = {this.props.userId}
                         handleInputChange = {this.handleInputChange}
@@ -103,23 +105,28 @@ export default class EditMarkersContainer extends Component {
                         name = {this.state.name}
                         urgency = {this.state.urgency}
                         user_rating = {this.state.user_rating}/>
-                         <Link to = "/">
-                            <button>Finish Edits</button>
-                        </Link>
+                        <div className = "button-container">
+                            <Link to = "/">
+                                <button className = "navigational">FINISH</button>
+                            </Link>
+                        </div>
                     </div>
 
-                    <div className = {"fourty-column"}>
+                    <div className = {"fourty-column-map"}>
                         <MapComponent 
                         handleClick = {this.handleSubmit}
                         filteredMarkers = {this.props.filteredMarkers}/>
                     </div>
 
 
-                    <div className = {"fourty-column scroll"}>
-                        {this.props.filteredMarkers.map(marker => <MarkerCardComponent
-                        marker = {marker}
-                        handleDelete = {this.handleDelete}
-                        parent = {"createMarkerContainer"}/>)}
+                    <div className = {"fourty-column"}>
+                        <h2>MY MARKERS</h2>
+                        <div className = {"scroll"}>
+                            {this.props.filteredMarkers.map(marker => <MarkerCardComponent
+                            marker = {marker}
+                            handleDelete = {this.handleDelete}
+                            parent = {"createMarkerContainer"}/>)}
+                        </div>
                     </div>
                 </div>
 

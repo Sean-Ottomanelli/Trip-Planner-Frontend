@@ -1,27 +1,94 @@
-.fifty-fifty-column{
-    border: black 1px solid;
-    width: 48%;
-    height: 100vh;
-}
 
 .twenty-column{
-    border: black 1px solid;
+    /* border: black 1px solid; */
     width: 18vw;
-    height: 100vh;
+    height: 60vh;
     margin: 1px;
+    padding-left:20px;
+    padding-right:20px
 }
 
 .fourty-column{
-    border: black 1px solid;
+    /* border: black 1px solid; */
     width: 38vw;
-    height: 100vh;
-    margin: 1px
+    height: 90vh;
+    margin: 1px;
+    padding-left:20px;
+    padding-right:20px;
+    display:flex;
+    flex-direction: column;
+}
+
+.fourty-column-map{
+    /* border: black 1px solid; */
+    width: 38vw;
+    height: 90vh;
+    margin: 1px;
 }
 
 .scroll{
-    overflow: scroll;
+    overflow-y: scroll;
 }
 
 .column-container{
     display: flex;
+}
+
+.newMarkerParamsDiv{
+    padding-top:20px;
+    padding-bottom:20px
+}
+
+.filterParamsDiv{
+    padding-top:20px;
+    padding-bottom:20px
+}
+
+.tripFormInputDiv{
+    padding-top:20px;
+    padding-bottom:20px
+}
+
+.topNavBar{
+    color: white;
+    background-color: black;
+    height: 60px;
+    margin-bottom: 10px;
+}
+
+.authButton{
+    background: none;
+    border: none;
+    color: white;
+    margin-left: 20px
+}
+
+.large-text-box{
+    width: 100%;
+    resize: none;
+}
+
+.one-line-text-box{
+    width: 100%;
+}
+
+.button-container{
+    padding-top:20px;
+}
+
+button.navigational{
+    border: none;
+    background-color: black;
+    color: white;
+    height: 40px;
+    border-radius: 5px;
+    margin: 4px;
+    min-width: 150px;
+}
+
+.marker-card{
+    border: darkgray 1px solid;
+    padding: 10px;
+    margin: 5px;
+    border-radius: 5px;
 }

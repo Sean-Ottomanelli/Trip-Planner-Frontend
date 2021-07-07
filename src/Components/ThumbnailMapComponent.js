@@ -24,7 +24,7 @@ const ThumbnailMapComponent = (props) => {
     });
     
     let updateZoom = () => {
-        if(props.filteredMarkers.length > 0) {
+        if(props.filteredMarkers.length > 0 && viewport.latitude && viewport.longitude) {
             const vp = new WebMercatorViewport({
                 width: 600,
                 height: 400,
@@ -67,11 +67,11 @@ const ThumbnailMapComponent = (props) => {
         <div>
             <ReactMapGl 
             // {...viewport}
-            latitude = {props.filteredMarkers.length > 0 ? viewport.latitude : 41}
-            longitude = {props.filteredMarkers.length > 0 ? viewport.longitude : -75}
+            latitude = {props.filteredMarkers.length > 0 && viewport.latitude && viewport.longitude? viewport.latitude : 41}
+            longitude = {props.filteredMarkers.length > 0 && viewport.latitude && viewport.longitude? viewport.longitude : -75}
             width = {viewport.width}
             height = {viewport.height}
-            zoom = {props.filteredMarkers.length > 0 ? viewport.zoom : 1}
+            zoom = {props.filteredMarkers.length > 0 && viewport.latitude && viewport.longitude? viewport.zoom : 1}
             onLoad = {() => updateZoom()}
                 mapboxApiAccessToken = {process.env.REACT_APP_MAPBOX_TOKEN}>
                 {props.filteredMarkers.map((location) => (

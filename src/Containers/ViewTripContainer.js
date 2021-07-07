@@ -11,31 +11,17 @@ export default class ViewTripContainer extends Component {
         this.state = {
             trip: {}
         }  
-        }
+    }
 
-        handleMarkerSelect = (clickedDestination) => {
-
-            if(this.state.destinations.some(stateDestination => stateDestination.id === clickedDestination.id)) {
-                let updatedStateDestinationsArray = this.state.destinations.filter(destination => destination.id != clickedDestination.id)
-                this.setState({
-                    destinations: updatedStateDestinationsArray
-                })
-            } else {
-                this.setState({
-                    destinations: [...this.state.destinations, clickedDestination]
-                })
-            }
-        }
-
-        componentDidMount(){
-            let trip = this.props.trips.find(trip => trip.id == this.props.match.params.tripId)
-            this.setState({
-                trip: trip
-            })
-        }
+    componentDidMount(){
+        let trip = this.props.trips.find(trip => trip.id == this.props.match.params.tripId)
+        this.setState({
+            trip: trip
+        })
+    }
 
         
-            doNothing = () => {}
+    doNothing = () => {}
 
     render() {
 
@@ -43,10 +29,9 @@ export default class ViewTripContainer extends Component {
             <div>
 
 
-                <h2>{this.state.trip.name}</h2>
 
-                <Link to="/">
-                    <button>My map</button>
+                <Link to="/mytrips">
+                    <button>Return to My Trips</button>
                 </Link>
                 <Link to={`/edittripdetails/${this.props.match.params.tripId}`}>
                     <button>Edit Trip</button>
@@ -55,7 +40,9 @@ export default class ViewTripContainer extends Component {
                 {this.state.trip.markers
                 ? <div className = "column-container">
                     <div className = {"twenty-column"}>
-                        
+                        <h2>Trip Details</h2>
+                        <h3>{this.state.trip.name}</h3>
+                        <p>{this.state.trip.description}</p>
                     </div>
 
                     

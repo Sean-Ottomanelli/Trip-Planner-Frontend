@@ -13,40 +13,40 @@ export default class NewMarkerComponent extends Component {
         return (
             <div>
                 <form onSubmit = {(e) => this.props.handleSubmit(e)}>
-                    <div>
+                    <div className = "newMarkerParamsDiv">
                         <label>
-                            Marker Name:<input onChange={(e) => this.props.handleInputChange(e)} name = "name" value = {this.props.name}/>
+                            MARKER NAME:<br/><input onChange={(e) => this.props.handleInputChange(e)} name = "name" value = {this.props.name}/>
                         </label>
                     </div>
-                    <div>
+                    <div className = "newMarkerParamsDiv">
                         <label>
-                            Restaurant<input onChange={(e) => this.props.handleInputChange(e)} type = "radio" name = "category" value = "Restaurant"/>
-                        </label>
+                            <input onChange={(e) => this.props.handleInputChange(e)} type = "radio" name = "category" value = "Restaurant"/>RESTAURANT
+                        </label><br/>
                         <label>
-                            Attraction<input onChange={(e) => this.props.handleInputChange(e)} type = "radio" name = "category" value = "Attraction"/>
-                        </label>
+                            <input onChange={(e) => this.props.handleInputChange(e)} type = "radio" name = "category" value = "Attraction"/>ATTRACTION
+                        </label><br/>
                         <label>
-                            Hike<input onChange={(e) => this.props.handleInputChange(e)} type = "radio" name = "category" value = "Hike"/>
-                        </label>
+                            <input onChange={(e) => this.props.handleInputChange(e)} type = "radio" name = "category" value = "Hike"/>HIKE
+                        </label><br/>
                         <label>
-                            Vista<input onChange={(e) => this.props.handleInputChange(e)} type = "radio" name = "category" value = "Vista"/>
-                        </label>
+                            <input onChange={(e) => this.props.handleInputChange(e)} type = "radio" name = "category" value = "Vista"/>VISTA
+                        </label><br/>
                         <label>
-                            Lodging<input onChange={(e) => this.props.handleInputChange(e)} type = "radio" name = "category" value = "Lodging"/>
-                        </label>
-                    </div>
-                    <div>
-                        <label>
-                            Visited <input onChange={(e) => this.props.handleVisited(e)} name="visited" type="checkbox" defaultChecked={this.state.visited}/>
+                            <input onChange={(e) => this.props.handleInputChange(e)} type = "radio" name = "category" value = "Lodging"/>LODGING
                         </label>
                     </div>
-                    <div>
+                    <div className = "newMarkerParamsDiv">
+                        <label>
+                            <input onChange={(e) => this.props.handleVisited(e)} name="visited" type="checkbox" defaultChecked={this.state.visited}/>VISITED
+                        </label>
+                    </div>
+                    <div className = "newMarkerParamsDiv">
                         {this.props.visited 
                         ? <label>
-                            Rating <input onChange={(e) => this.props.handleInputChange(e)} name = "user_rating" type="range" min = {1} max={5} value = {this.props.user_rating}/>
+                            RATING: {this.props.user_rating}<br/><input onChange={(e) => this.props.handleInputChange(e)} name = "user_rating" type="range" min = {1} max={5} value = {this.props.user_rating}/>
                         </label> 
                         : <label>
-                            Urgency <input onChange={(e) => this.props.handleInputChange(e)} name = "urgency" type="range" min = {1} max={5} value = {this.props.urgency}/>
+                            URGENCY: {this.props.urgency}<br/><input onChange={(e) => this.props.handleInputChange(e)} name = "urgency" type="range" min = {1} max={5} value = {this.props.urgency}/>
                         </label>}
                     </div>
                 </form>

@@ -28,6 +28,7 @@ export default class MainMapContainer extends Component {
 
                 <div className = "column-container">
                     <div className = {"twenty-column"}>
+                        <h2>FILTER MARKERS</h2>
                         <FilterComponent 
                         categorySelect = {this.props.categorySelect} 
                         showCategory = {this.props.showCategory}
@@ -39,33 +40,38 @@ export default class MainMapContainer extends Component {
                         showRating = {this.props.showRating}
                         urgencySelect = {this.props.urgencySelect}
                         showUrgency = {this.props.showUrgency}/>
-                        <Link to="/editmarkers">
-                            <button>Edit Map Markers</button>
-                        </Link><br/>
-                        <Link to="/createtrip">
-                            <button>Create New Trip</button>
-                        </Link><br/>
-                        <Link to="/mytrips">
-                            <button>See your trips</button>
-                        </Link><br/>
-                        <Link to="/createtrip">
-                            <button>See Suggested Trips</button>
-                        </Link>
-                            </div>
+                        <div className = "button-container">
+                            <Link to="/editmarkers">
+                                <button className = "navigational">EDIT MARKERS</button>
+                            </Link><br/>
+                            <Link to="/createtrip">
+                                <button className = "navigational">CREATE TRIP</button>
+                            </Link><br/>
+                            <Link to="/mytrips">
+                                <button className = "navigational">VIEW TRIPS</button>
+                            </Link><br/>
+                            <Link to="/createtrip">
+                                <button className = "navigational">SUGGESTED TRIPS</button>
+                            </Link>
+                        </div>
+                    </div>
 
                     
-                    <div className = {"fourty-column"}>
+                    <div className = {"fourty-column-map"}>
                         <MapComponent 
                         handleClick = {this.doNothing}  
                         filteredMarkers = {this.props.filteredMarkers}/>
                     </div>
 
 
-                    <div className = {"fourty-column scroll"}>
-                        {this.props.filteredMarkers.map(marker => <MarkerCardComponent 
-                        marker = {marker}
-                        handleDelete = {this.doNothing}
-                        parent = {"mainMapContainer"}/>)}
+                    <div className = {"fourty-column"}>
+                        <h2>MY MARKERS</h2>
+                        <div className = {"scroll"}>
+                            {this.props.filteredMarkers.map(marker => <MarkerCardComponent 
+                            marker = {marker}
+                            handleDelete = {this.doNothing}
+                            parent = {"mainMapContainer"}/>)}
+                        </div>
                     </div>
                 </div>
 

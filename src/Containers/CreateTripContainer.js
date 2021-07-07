@@ -96,6 +96,7 @@ export default class CreateTripContainer extends Component {
             .then(() => {
                 this.props.addTripToUser(newTrip)
                 this.createDestinations()
+                this.props.history.push('/mytrips')
             })
 
     }
@@ -110,16 +111,17 @@ export default class CreateTripContainer extends Component {
 
                 <div className = "column-container">
                     <div className = {"twenty-column"}>
+                        <h2>CREATE TRIP</h2>
                         <NewTripComponent
                         handleInputChange = {this.handleInputChange}
                         newTripName = {this.state.newTripName}
                         newTripDescription = {this.newTripDescription}/>
-                        <Link to="/">
-                        <button onClick = {this.createTrip}>Create Trip</button>
-                        </Link>
-                        <Link to="/">
-                        <button>Cancel</button>
-                        </Link>
+                        <div  className = "button-container">
+                            <button className = "navigational" onClick = {this.createTrip}>CREATE TRIP</button><br/>
+                            <Link to="/">
+                            <button className = "navigational">CANCEL</button>
+                            </Link>
+                        </div>
                     </div>
 
 
@@ -135,10 +137,13 @@ export default class CreateTripContainer extends Component {
 
                     
                     <div className = {"fourty-column"}>
-                        {this.state.destinations.map(marker => <MarkerCardComponent 
-                        marker = {marker}
-                        handleDelete = {this.removeFromTrip}
-                        parent = {"createTripContainer"}/>)}
+                        <h2>TRIP MARKERS</h2>
+                        <div className = {"scroll"}>
+                            {this.state.destinations.map(marker => <MarkerCardComponent 
+                            marker = {marker}
+                            handleDelete = {this.removeFromTrip}
+                            parent = {"createTripContainer"}/>)}
+                        </div>
                     </div>
                 </div>
 
