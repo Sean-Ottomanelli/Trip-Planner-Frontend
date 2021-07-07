@@ -10,7 +10,7 @@ export default class EditTripsContainer extends Component {
     constructor() {
         super()
         this.state = {
-            destinations: [],
+            markers: [],
             name: "",
             description: "",
             id: null,
@@ -20,25 +20,33 @@ export default class EditTripsContainer extends Component {
         }
 
 
-        handleMarkerSelect = (clickedDestination) => {
+        handleMarkerSelect = (clickedMarker) => {
 
-            if(this.state.destinations.some(stateDestination => stateDestination.id === clickedDestination.id)) {
-                let updatedStateDestinationsArray = this.state.destinations.filter(destination => destination.id != clickedDestination.id)
+            if(this.state.markers.some(stateMarker => stateMarker.id === clickedMarker.id)) {
+                let updatedMarkers = this.state.markers.filter(marker => marker.id != clickedMarker.id)
+                let updatedDestinations = this.state.destinations.filter(destination => destination.marker_id != clickedMarker.id)
                 this.setState({
-                    destinations: updatedStateDestinationsArray
+                    markers: updatedMarkers,
+                    destinations: updatedDestinations
                 })
             } else {
+                let newDestination = {
+                    marker_id: clickedMarker.id,
+                    trip_id: this.state.id
+                }
+
                 this.setState({
-                    destinations: [...this.state.destinations, clickedDestination]
+                    markers: [...this.state.markers, clickedMarker],
+                    destinations: [...this.state.destinations, newDestination]
                 })
             }
         }
 
 
         removeFromTrip = (input) => {
-            let updatedDestinations = this.state.destinations.filter(destination => destination.id != input.id)
+            let updatedMarkers = this.state.markers.filter(marker => marker.id != input.id)
             this.setState({
-                destinations: updatedDestinations
+                markers: updatedMarkers
             })
         }
 
@@ -59,15 +67,21 @@ export default class EditTripsContainer extends Component {
 
         updateDestinations = () => {
             let trip = this.props.trips.find(trip => trip.id == this.props.match.params.tripId)
-            let markersToDelete = trip.markers.filter(propMarker => 
-                !this.state.destinations.some(stateDestination => stateDestination.id === propMarker.id))
-            console.log("markersToDelete: ",markersToDelete)
-            let markersToCreate = this.state.destinations.filter(stateDestination => 
-                !trip.markers.some(propMarker => stateDestination.id === propMarker.id))
-            console.log("markersToCreate: ",markersToCreate)
+            let destinationsToDelete = trip.destinations.filter(propDestination => 
+                !this.state.destinations.some(stateDestination => stateDestination.id === propDestination.id))
+            console.log("destinationsToDelete: ",destinationsToDelete)
+            let destinationsToCreate = this.state.destinations.filter(stateDestination => 
+                !trip.destinations.some(propDestination => stateDestination.id === propDestination.id))
+            console.log("destinationsToCreate: ",destinationsToCreate)
 
-            markersToDelete.map(marker => 
-                fetch(`http://localhost:3000/destinations/${marker}`, {
+            destinationsToDelete.map(destination => this.deleteDestination(destination))
+                
+            destinationsToCreate.map(destination => this.createDestination(destination))
+                
+        }
+
+        deleteDestination = (destination) => {
+            fetch(`http://localhost:3000/destinations/${destination.id}`, {
                     method: "DELETE",
                     headers: {
                         "Authorization":`Bearer ${localStorage.token}`
@@ -75,18 +89,32 @@ export default class EditTripsContainer extends Component {
                 })
                 .then((r) => r.json())
                 .then(() => console.log("Deleted"))
-                )
+        }
+
+        createDestination = (destination) => {
+            fetch("http://localhost:3000/destinations", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization":`Bearer ${localStorage.token}`
+                    },
+                body: JSON.stringify(destination),
+            })
+            .then((r) => r.json())
+            .then((destinationObj) => console.log(destinationObj));
         }
 
 
         saveTrip = () => {
+            console.log(this.state)
             let updatedTrip = {
                 name: this.state.name,
                 description: this.state.description,
                 completed: this.state.completed,
                 id: this.state.id,
                 user_id: this.state.userId,
-                markers: this.state.destinations
+                markers: this.state.markers,
+                destinations: this.state.destinations,
             }
             fetch(`http://localhost:3000/trips/${this.state.id}`, {
                 method: "PATCH",
@@ -112,7 +140,8 @@ export default class EditTripsContainer extends Component {
         componentDidMount(){
             let trip = this.props.trips.find(trip => trip.id == this.props.match.params.tripId)
             this.setState({
-                destinations: trip.markers,
+                destinations: trip.destinations,
+                markers: trip.markers,
                 name: trip.name,
                 description: trip.description,
                 id: trip.id,
@@ -147,7 +176,7 @@ export default class EditTripsContainer extends Component {
                 
                     <div className = {"fourty-column-map"}>
                         <MapComponent
-                        selectedDestinations = {this.state.destinations}
+                        selectedDestinations = {this.state.markers}
                         addToTrip = {this.handleMarkerSelect} 
                         allowAddToTrip = {true}
                         handleClick = {this.doNothing}  
@@ -156,7 +185,7 @@ export default class EditTripsContainer extends Component {
 
                     
                     <div className = {"fourty-column"}>
-                        {this.state.destinations.map(marker => <MarkerCardComponent 
+                        {this.state.markers.map(marker => <MarkerCardComponent 
                         marker = {marker}
                         handleDelete = {this.removeFromTrip}
                         parent = {"EditTripContainer"}/>)}
