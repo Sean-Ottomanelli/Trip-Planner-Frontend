@@ -96,6 +96,7 @@ export default class EditMarkersContainer extends Component {
                     <div className = {"twenty-column"}>
                         <h2>EDIT MARKERS</h2>
                         <p>Fill in all of the fields below and click a location on the map to place a marker.</p>
+                        <p>To permanantly remove a marker from your map hover over the marker and click the delete button or press the delete button in the MY MARKERS list.</p>
                         <NewMarkerComponent
                         userId = {this.props.userId}
                         handleInputChange = {this.handleInputChange}

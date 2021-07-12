@@ -48,7 +48,7 @@ const MapComponent = (props) => {
                         ? () => props.addToTrip(location)
                         : null}>
         
-                            {!props.selectedDestinations 
+                            {!props.selectedDestinations
                             ? <img src="/MapIcons/mapbox-marker-icon-blue.svg" />
                             : props.selectedDestinations.some(destination => destination.id === location.id) 
                             ? <img src="/MapIcons/mapbox-marker-icon-green.svg" /> 
@@ -57,6 +57,14 @@ const MapComponent = (props) => {
                         </button>
                     </Marker>
                 ))}
+                {props.seedMarkers
+                ? props.seedMarkers.map(seed => <Marker latitude = {seed[1]} longitude = {seed[0]}>
+                    <button 
+                    style = {{"background":"none", "border":"none", "padding":"0px"}}>
+                        <img src="/MapIcons/mapbox-marker-icon-red.svg" />
+                    </button>
+                </Marker> )
+                : console.log("I dont have any seed markers")}
 
                 {selectedMarker 
                 ? (<Popup 
@@ -75,3 +83,7 @@ const MapComponent = (props) => {
 }
 
 export default MapComponent
+
+
+
+

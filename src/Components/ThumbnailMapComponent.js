@@ -77,7 +77,7 @@ const ThumbnailMapComponent = (props) => {
                 {props.filteredMarkers.map((location) => (
                     <Marker key = {location.id} latitude = {location.latitude} longitude = {location.longitude}>
                         <button style = {{"background":"none", "border":"none"}}>
-                            <img src="/MapIcons/mapbox-marker-icon-20px-blue.png"/>
+                            <img src="/MapIcons/mapbox-marker-icon-blue.svg"/>
                         </button>
                     </Marker>
                 ))}

@@ -29,6 +29,7 @@ export default class MainMapContainer extends Component {
                 <div className = "column-container">
                     <div className = {"twenty-column"}>
                         <h2>FILTER MARKERS</h2>
+                        <p>Use the filters below to specify which markers you'd like displayed on your map and in the MY MARKERS list.</p>
                         <FilterComponent 
                         categorySelect = {this.props.categorySelect} 
                         showCategory = {this.props.showCategory}
@@ -50,7 +51,7 @@ export default class MainMapContainer extends Component {
                             <Link to="/mytrips">
                                 <button className = "navigational">VIEW TRIPS</button>
                             </Link><br/>
-                            <Link to="/createtrip">
+                            <Link to="/suggestedtrips">
                                 <button className = "navigational">SUGGESTED TRIPS</button>
                             </Link>
                         </div>

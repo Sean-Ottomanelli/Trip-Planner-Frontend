@@ -92,3 +92,7 @@ button.navigational{
     margin: 5px;
     border-radius: 5px;
 }
+
+.radius-input{
+    width:60px;
+}

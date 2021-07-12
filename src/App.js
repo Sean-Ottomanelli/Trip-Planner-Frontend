@@ -288,7 +288,8 @@ class App extends Component{
             <Route path="/suggestedtrips"
               render={(routerProps) => localStorage.token 
               ? <SuggestedTripsContainer
-              {...routerProps}/> 
+              {...routerProps}
+              markers = {this.state.markers}/> 
               : <LoginContainer/>}/>
 
             <Route path="/edittripdetails/:tripId"
@@ -308,6 +309,7 @@ class App extends Component{
               trips = {this.state.trips}
               markers = {this.state.markers}/> 
               : <LoginContainer/>}/>
+              
           </Switch>
         </Router>
       </div>

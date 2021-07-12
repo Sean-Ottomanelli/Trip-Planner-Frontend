@@ -15,7 +15,8 @@ export default class EditTripsContainer extends Component {
             description: "",
             id: null,
             completed: false,
-            userId: null
+            userId: null,
+            destinations: []
         }  
         }
 
