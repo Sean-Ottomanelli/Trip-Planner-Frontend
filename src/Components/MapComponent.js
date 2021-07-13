@@ -37,7 +37,11 @@ const MapComponent = (props) => {
                     setViewport(viewport);
                 }}>
                 {props.filteredMarkers.map((location) => (
-                    <Marker key = {location.id} latitude = {location.latitude} longitude = {location.longitude}>
+                    <Marker key = {location.id} 
+                    latitude = {location.latitude} 
+                    longitude = {location.longitude}
+                    offsetTop={-25}
+                    offsetLeft={-10}>
                         <button 
                         style = {{"background":"none", "border":"none", "padding":"0px"}}
                         onMouseOver = {e => {
@@ -46,7 +50,10 @@ const MapComponent = (props) => {
                         }}
                         onClick = {props.allowAddToTrip 
                         ? () => props.addToTrip(location)
-                        : null}>
+                        : props.parent === "EditMarkersContainer" ? () => {
+                            props.handleDelete(location)
+                            setSelectedMarker(null)
+                            } : null}>
         
                             {!props.selectedDestinations
                             ? <img src="/MapIcons/mapbox-marker-icon-blue.svg" />
@@ -58,23 +65,30 @@ const MapComponent = (props) => {
                     </Marker>
                 ))}
                 {props.seedMarkers
-                ? props.seedMarkers.map(seed => <Marker latitude = {seed[1]} longitude = {seed[0]}>
+                ? props.seedMarkers.map(seed => <Marker 
+                latitude = {seed[1]} 
+                longitude = {seed[0]}
+                offsetTop={-25}
+                offsetLeft={-10}>
                     <button 
                     style = {{"background":"none", "border":"none", "padding":"0px"}}>
                         <img src="/MapIcons/mapbox-marker-icon-red.svg" />
                     </button>
                 </Marker> )
-                : console.log("I dont have any seed markers")}
+                : null}
 
                 {selectedMarker 
                 ? (<Popup 
                 latitude = {selectedMarker.latitude} 
                 longitude = {selectedMarker.longitude}
+                offsetTop = {-25}
                 onClose = {() => {
                     setSelectedMarker(null)
                 }}>
                     <div>
-                        <p>{selectedMarker.name}</p>
+                        <div className = "popUpDiv">
+                            <p className = "popUpText">{selectedMarker.name}</p>
+                        </div>
                     </div>
                 </Popup>) : null }
             </ReactMapGl>

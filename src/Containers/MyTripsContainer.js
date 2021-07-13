@@ -16,15 +16,19 @@ export default class MyTripsContainer extends Component {
 
         return (
             <div>
-                <h2>My Trips</h2>
-                <Link to="/">
-                    <button>Return to My Map</button>
-                </Link>
-                {reversedTrips.map(trip => <TripCardComponent
-                deleteTrip = {this.props.deleteTrip}
-                handleClick = {this.handleClick}
-                trip = {trip}/>
-                )}
+                <div className = "myTripsContainerHeading">
+                    <h2>MY TRIPS</h2>
+                    <Link to="/">
+                        <button className = {"navigational"}>BACK TO MY MAP</button>
+                    </Link>
+                </div>
+                <div className = "tripCardContainer">
+                    {reversedTrips.map(trip => <TripCardComponent
+                    deleteTrip = {this.props.deleteTrip}
+                    handleClick = {this.handleClick}
+                    trip = {trip}/>
+                    )}
+                </div>
             </div>
         )
     }

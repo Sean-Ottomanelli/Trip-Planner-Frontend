@@ -41,6 +41,7 @@ export default class LoginContainer extends Component {
           }
           else{
             localStorage.token = user.jwt
+            this.props.history.push('/')
             window.location.reload()
           }
         });
@@ -64,6 +65,7 @@ export default class LoginContainer extends Component {
           else{
             if (this.state.password === this.state.passwordConfirm) {
                 localStorage.token = user.jwt
+                this.props.history.push('/')
                 window.location.reload()
             }
             else {
@@ -75,36 +77,48 @@ export default class LoginContainer extends Component {
 
     render() {
         return (
-            <div>
-                <form onSubmit = {!!this.state.loginDisplay
+            <div className = {"loginContainer"}>
+                <form className = {"authForm"} onSubmit = {!!this.state.loginDisplay
                     ? this.handleLogin
                     : this.handleRegister}>
-                    <div>
-                    <input
-                    onChange = {(e) => this.handleFormChange(e)}
-                    name = {"username"}
-                    value = {this.state.username}>
-                    </input>
-                    <input
-                    onChange = {(e) => this.handleFormChange(e)}
-                    type = {"password"}
-                    name = {"password"}
-                    value = {this.state.password}>
-                    </input>
+                    <div className = {"authFormInnerDiv"}>
+                        <input
+                        onChange = {(e) => this.handleFormChange(e)}
+                        className = {"authInput"}
+                        placeholder = {"USERNAME"}
+                        name = {"username"}
+                        value = {this.state.username}>
+                        </input>
+                    <br/>
+                        <input
+                        onChange = {(e) => this.handleFormChange(e)}
+                        className = {"authInput"}
+                        placeholder = {"PASSWORD"}
+                        type = {"password"}
+                        name = {"password"}
+                        value = {this.state.password}>
+                        </input>
+                    <br/>
                     {!!this.state.loginDisplay
                     ? null
-                    : <input
-                    onChange = {(e) => this.handleFormChange(e)}
-                    type = {"password"}
-                    name = {"passwordConfirm"}
-                    value = {this.state.passwordConfirm}>
-                    </input>}
+                    : 
+                        <div>
+                        <input
+                        onChange = {(e) => this.handleFormChange(e)}
+                        className = {"authInput"}
+                        placeholder = {"CONFIRM PASSWORD"}
+                        type = {"password"}
+                        name = {"passwordConfirm"}
+                        value = {this.state.passwordConfirm}>
+                        </input><br/>
+                        </div>
+                    }
+                    <button className = {"login"}>{this.state.loginDisplay ? "LOGIN" : "REGISTER"}</button><br/>
+                    <p className = {"registerToggle"} onClick={() => this.toggleLoginRegister()}>
+                        {this.state.loginDisplay ? "NEW USERS CLICK HERE" : "CLICK HERE TO LOGIN"}
+                    </p>
                     </div>
-                    <button>Login</button>
                 </form>
-                <p onClick={() => this.toggleLoginRegister()}>
-                    {this.state.loginDisplay ? "Register" : "Login"}
-                </p>
             </div>
         )
     }

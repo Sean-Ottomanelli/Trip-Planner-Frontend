@@ -204,12 +204,17 @@ class App extends Component{
 
     return(
       <div>
-        {localStorage.token 
-        ? <div className = {"topNavBar"}>
-          <button className = {"authButton left-space"} onClick = {this.logoutHandler}><h2>LOGOUT</h2></button>
-        </div>
-        : null}
         <Router>
+        <div className = {"topNavBar"}>
+          <div className = {"titleDiv"}>
+            <Link className = {"doNotDecorate"} to="/">
+              <h2 className = {"title"}>TRIP PLANNER</h2>
+            </Link>
+          </div>
+          <div className = {"authDiv"}>
+            {localStorage.token ? <button className = {"authButton left-space"} onClick = {this.logoutHandler}>LOGOUT</button> : null}
+          </div>
+        </div>
 
           {/* <ul>
             <li>
@@ -246,7 +251,7 @@ class App extends Component{
               userId = {this.state.userId}
               addNewMarker = {this.addNewMarker}
               deleteMarker = {this.deleteMarker}/> 
-              : <LoginContainer/>}/>
+              : <LoginContainer {...routerProps} />}/>
 
             <Route path="/createtrip"
               render={(routerProps) => localStorage.token 
@@ -256,7 +261,7 @@ class App extends Component{
               // addMarkerToUser = {this.addMarkerToUser}
               userId = {this.state.userId}
               markers = {this.state.markers}/> 
-              : <LoginContainer/>}/>
+              : <LoginContainer {...routerProps} />}/>
 
             <Route exact path="/"
               render={(routerProps) => localStorage.token 
@@ -274,7 +279,7 @@ class App extends Component{
               showUrgency = {this.state.showUrgency} 
               markers = {this.state.markers}
               filteredMarkers = {filteredMarkers}/> 
-              : <LoginContainer/>}/>
+              : <LoginContainer {...routerProps} />}/>
 
             <Route path="/mytrips"
               render={(routerProps) => localStorage.token 
@@ -283,14 +288,14 @@ class App extends Component{
               deleteTrip = {this.deleteTrip}
               filteredMarkers = {filteredMarkers}
               trips = {this.state.trips}/> 
-              : <LoginContainer/>}/>
+              : <LoginContainer {...routerProps} />}/>
 
             <Route path="/suggestedtrips"
               render={(routerProps) => localStorage.token 
               ? <SuggestedTripsContainer
               {...routerProps}
               markers = {this.state.markers}/> 
-              : <LoginContainer/>}/>
+              : <LoginContainer {...routerProps} />}/>
 
             <Route path="/edittripdetails/:tripId"
               render={(routerProps) => localStorage.token 
@@ -300,7 +305,7 @@ class App extends Component{
               updateTripInState = {this.updateTripInState}
               trips = {this.state.trips}
               markers = {this.state.markers}/> 
-              : <LoginContainer/>}/>
+              : <LoginContainer {...routerProps} />}/>
 
             <Route path="/viewtripdetails/:tripId"
               render={(routerProps) => localStorage.token 
@@ -308,7 +313,7 @@ class App extends Component{
               {...routerProps}
               trips = {this.state.trips}
               markers = {this.state.markers}/> 
-              : <LoginContainer/>}/>
+              : <LoginContainer {...routerProps} />}/>
               
           </Switch>
         </Router>

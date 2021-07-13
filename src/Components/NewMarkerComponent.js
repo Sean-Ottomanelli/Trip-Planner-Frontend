@@ -12,7 +12,7 @@ export default class NewMarkerComponent extends Component {
     render() {
         return (
             <div>
-                <form onSubmit = {(e) => this.props.handleSubmit(e)}>
+                <form>
                     <div className = "newMarkerParamsDiv">
                         <label>
                             MARKER NAME:<br/><input onChange={(e) => this.props.handleInputChange(e)} name = "name" value = {this.props.name}/>

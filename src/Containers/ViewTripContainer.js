@@ -30,19 +30,28 @@ export default class ViewTripContainer extends Component {
 
 
 
-                <Link to="/mytrips">
-                    <button>Return to My Trips</button>
-                </Link>
-                <Link to={`/edittripdetails/${this.props.match.params.tripId}`}>
-                    <button>Edit Trip</button>
-                </Link>
+                
 
                 {this.state.trip.markers
                 ? <div className = "column-container">
                     <div className = {"twenty-column"}>
-                        <h2>Trip Details</h2>
-                        <h3>{this.state.trip.name}</h3>
+                        <div className = "tripDetailsDiv">
+                            <h2>TRIP DETAILS</h2>
+                        </div>
+                        <div className = "tripDetailsDiv">
+                            <h3>{this.state.trip.name}</h3>
+                        </div>
+                        <div className = "tripDetailsDiv">
                         <p>{this.state.trip.description}</p>
+                        </div>
+                        <div className = "tripDetailsDiv">
+                        <Link to="/mytrips">
+                            <button className = "navigational">Return to My Trips</button>
+                        </Link><br/>
+                        <Link to={`/edittripdetails/${this.props.match.params.tripId}`}>
+                            <button className = "navigational">Edit Trip</button>
+                        </Link>
+                        </div>
                     </div>
 
                     

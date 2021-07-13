@@ -167,11 +167,13 @@ export default class EditTripsContainer extends Component {
                         completed = {this.state.completed}
                         description = {this.state.description}
                         handleCompleted = {this.handleCompleted}/>
-                    <button onClick = {this.saveTrip}>Save Trip</button><br/>
-                    <button onClick={() => this.props.history.goBack()}>Cancel</button><br/>
-                    <Link to="/mytrips">
-                        <button onClick={() => this.props.deleteTrip(this.state.id)}>Delete Trip</button>
-                    </Link>
+                        <div className = "button-container">
+                            <button className = "navigational" onClick = {this.saveTrip}>Save Trip</button><br/>
+                            <button className = "navigational"onClick={() => this.props.history.goBack()}>Cancel</button><br/>
+                            <Link to="/mytrips">
+                                <button className = "navigational" onClick={() => this.props.deleteTrip(this.state.id)}>Delete Trip</button>
+                            </Link>
+                        </div>
                     </div>
 
                 

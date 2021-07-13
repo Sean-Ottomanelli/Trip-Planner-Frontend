@@ -110,7 +110,6 @@ export default class CreateTripContainer extends Component {
     }
 
     createDestinations = () => {
-
         this.allSelectedDestinations().map(destination => {
 
             let newDestination = {
@@ -127,7 +126,9 @@ export default class CreateTripContainer extends Component {
                 body: JSON.stringify(newDestination),
             })
             .then((r) => r.json())
-            .then((createdDestination) => console.log(createdDestination));
+            .then((createdDestination) => {this.setState({
+                destinations: createdDestination
+            })});
         })
 
     }
@@ -139,7 +140,8 @@ export default class CreateTripContainer extends Component {
             user_id: this.props.userId,
             name: this.state.newTripName,
             completed: this.state.completed,
-            description: this.state.newTripDescription
+            description: this.state.newTripDescription,
+            destinations: this.state.destinations
         }
 
         fetch("http://localhost:3000/trips", {
@@ -153,13 +155,14 @@ export default class CreateTripContainer extends Component {
             .then((r) => r.json())
             .then((createdTrip) => {
                 this.setState({newTripId: createdTrip.id})
+                console.log("trip without markers", newTrip)
                 newTrip.markers = this.allSelectedDestinations()
+                console.log("trip with markers", newTrip)
                 newTrip.id = createdTrip.id
-
+                this.createDestinations()
             })
             .then(() => {
                 this.props.addTripToUser(newTrip)
-                this.createDestinations()
                 this.props.history.push('/mytrips')
             })
 
@@ -172,8 +175,8 @@ export default class CreateTripContainer extends Component {
                 <div className = "column-container">
                     <div className = {"twenty-column"}>
                         <h2>CREATE TRIP</h2>
-                        <p>To create a new trip fill in the following fields and add destinations by clicking on map markers.</p> 
-                        <p>To select all markers within a specified radius of a location or locations select a point or multiple points on the map, specify a radius, and click the NEARBY MARKERS button.</p>
+                        <p>Fill in the following fields and add destinations by clicking on map markers.</p> 
+                        <p>To select all markers within a specified radius of a location select a point or multiple points on the map, specify a radius, and click the NEARBY MARKERS button.</p>
                         <p>Click CREATE TRIP to save your trip.</p>
                         <NewTripComponent
                         handleInputChange = {this.handleInputChange}

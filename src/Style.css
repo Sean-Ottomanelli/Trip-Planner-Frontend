@@ -1,3 +1,83 @@
+body {
+    font-family: Oxygen;
+    font-weight: 700;
+}
+
+input {
+    font-family: Oxygen;
+    font-weight: 700;
+}
+
+button {
+    font-family: Oxygen;
+    font-weight: 700;
+}
+
+textArea {
+    font-family: Oxygen;
+    font-weight: 700;
+    font-size: 16px;
+}
+
+.topNavBar{
+    color: white;
+    background-color: black;
+    height: 60px;
+    margin-bottom: 10px;
+    display: flex;
+}
+
+.authDiv{
+    /* border: white 1px solid; */
+    width:48%;
+    display: flex;
+    flex-direction: row-reverse
+}
+
+.titleDiv{
+    /* border: white 1px solid; */
+    width:48%;
+}
+
+.authButton{
+    background: none;
+    /* border: white 1px solid; */
+    border: none;
+    color: white;
+}
+
+.doNotDecorate {
+    text-decoration: none;
+}
+
+.title{
+    background: none;
+    /* border: white 1px solid; */
+    color: white;
+    margin-left: 20px;
+    text-decoration: none;
+}
+
+.loginContainer{
+    /* border: black solid 1px; */
+    display: flex;
+    /* flex-direction: column; */
+    justify-content: center;
+}
+
+.loginButton{
+    margin-left:50%
+}
+
+.authForm{
+    border: lightgray 1px solid;
+    padding: 20px;
+    border-radius: 5px;
+    width:fit-content;
+    display: flex;
+    justify-content: center;
+    margin-top: 20%;
+}
 
 .twenty-column{
     /* border: black 1px solid; */
@@ -6,7 +86,7 @@
     margin: 1px;
     padding-left:20px;
     padding-right:20px
-}
+}        
 
 .fourty-column{
     /* border: black 1px solid; */
@@ -17,50 +97,75 @@
     padding-right:20px;
     display:flex;
     flex-direction: column;
-}
+}        
 
 .fourty-column-map{
     /* border: black 1px solid; */
     width: 38vw;
     height: 90vh;
     margin: 1px;
+}        
+
+.authInput{
+    width: 200px;
+}
+
+/* .authFormInnerDiv{
+    border: 2px red solid;
+    display:flex;
+    flex-direction: column
+} */
+
+
+.registerToggle{
+    /* border: black solid 1px; */
+    font-size: 10px;
+    text-align: center;
+}
+
+.login{
+    border: none;
+    background-color: black;
+    color: white;
+    width:207px;
+    height: 40px;
+    border-radius: 5px;
+    margin-top: 5px;
+    min-width: 150px;
+    text-align: center;
 }
 
 .scroll{
     overflow-y: scroll;
-}
+}        
 
 .column-container{
     display: flex;
-}
+}        
 
 .newMarkerParamsDiv{
     padding-top:20px;
     padding-bottom:20px
-}
+}        
 
 .filterParamsDiv{
     padding-top:20px;
     padding-bottom:20px
-}
+}        
 
 .tripFormInputDiv{
     padding-top:20px;
     padding-bottom:20px
+}   
+
+.editTripInputDiv{
+    padding-top:20px;
+    padding-bottom:20px
 }
 
-.topNavBar{
-    color: white;
-    background-color: black;
-    height: 60px;
-    margin-bottom: 10px;
-}
-
-.authButton{
-    background: none;
-    border: none;
-    color: white;
-    margin-left: 20px
+.tripDetailsDiv{
+    padding-top:20px;
+    padding-bottom:20px
 }
 
 .large-text-box{
@@ -70,29 +175,157 @@
 
 .one-line-text-box{
     width: 100%;
+    font-size: 16px;
 }
 
 .button-container{
     padding-top:20px;
 }
 
-button.navigational{
+.navigational{
     border: none;
     background-color: black;
     color: white;
     height: 40px;
     border-radius: 5px;
-    margin: 4px;
+    margin-top: 4px;
+    margin-bottom: 4px;
     min-width: 150px;
-}
-
-.marker-card{
-    border: darkgray 1px solid;
-    padding: 10px;
-    margin: 5px;
-    border-radius: 5px;
 }
 
 .radius-input{
     width:60px;
+}
+
+.tripCardContainer{
+    display:flex;
+    flex-wrap: wrap;
+}
+
+.tripCard{
+    border: lightgray 1px solid;
+    border-radius: 5px;
+    padding:5px;
+    margin: 20px;
+    max-width: 300px;
+}
+
+.tripCardTitle{
+    text-align: center;
+    border-bottom: lightgray 1px solid;
+    height: 26px;
+    padding: 5px;
+    /* overflow:hidden;
+    text-overflow:ellipsis; */
+}
+
+.tripCardDescription{
+    padding-top:5px;
+    /* border: black 1px solid; */
+    height: 30px;
+    /* overflow:hidden;
+    text-overflow:ellipsis; */
+}
+
+.tripCardCompleted{
+    /* border: black 1px solid; */
+    height: fit-content;
+    padding: 5px;
+}
+
+.tripCardMap{
+    border: lightgray 1px solid;
+    width: fit-content;
+    height: fit-content;
+}
+
+.tripCardButtons{
+    text-align: center;
+    /* border: black 1px solid; */
+    height: fit-content;
+    padding:5px;
+}
+
+.noMargin{
+    margin:0px;
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.myTripsContainerHeading{
+    margin-left: 20px
+}
+
+.marker-card{
+    border: lightgray 1px solid;
+    padding: 10px;
+    margin: 5px;
+    border-radius: 5px;
+    display: flex;
+}
+
+.thumbnailImage{
+    height:200px;
+    width:200px;
+    object-fit:cover;
+}
+
+.markerCardDetails{
+    /* border: black 1px solid; */
+    padding: 10px;
+    max-width: 300px;
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.markerCardName{
+    /* border: black 1px solid; */
+    height: 30px;
+}
+
+.markerCardCategory{
+    /* border: black 1px solid; */
+    height: 30px;
+}
+
+.markerCardVisited{
+    /* border: black 1px solid; */
+    height: 30px;
+}
+
+.markerCardRatingUrgency{
+    /* border: black 1px solid; */
+    height: 30px;
+}
+
+.markerCardButton{
+    /* border: black 1px solid; */
+    height: fit-content;
+}
+
+.popUp{
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 5px;
+
+
+
+    height: 30px;
+
+
+
+    min-width: 100px;
+}
+
+.popUpDiv{
+    /* border:black 1px solid; */
+    text-align:center;
+}
+
+.popUpText{
+    margin-top:5px;
+    margin-bottom:5px;
 }

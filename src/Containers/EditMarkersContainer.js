@@ -84,7 +84,10 @@ export default class EditMarkersContainer extends Component {
             body: JSON.stringify(newMarker),
             })
         .then((r) => r.json())
-        .then((newMarker) => this.props.addNewMarker(newMarker));
+        .then((newMarker) => {
+            this.props.addNewMarker(newMarker)
+            console.log("fetched")
+        });
     }
 
     render() {
@@ -95,8 +98,8 @@ export default class EditMarkersContainer extends Component {
                 <div className = {"column-container"}>
                     <div className = {"twenty-column"}>
                         <h2>EDIT MARKERS</h2>
-                        <p>Fill in all of the fields below and click a location on the map to place a marker.</p>
-                        <p>To permanantly remove a marker from your map hover over the marker and click the delete button or press the delete button in the MY MARKERS list.</p>
+                        <p>Fill in all of the fields below and click an empty location on the map to place a marker.</p>
+                        <p>To permanantly remove a marker click the marker on your map or press the delete button in the MY MARKERS list.</p>
                         <NewMarkerComponent
                         userId = {this.props.userId}
                         handleInputChange = {this.handleInputChange}
@@ -116,7 +119,9 @@ export default class EditMarkersContainer extends Component {
                     <div className = {"fourty-column-map"}>
                         <MapComponent 
                         handleClick = {this.handleSubmit}
-                        filteredMarkers = {this.props.filteredMarkers}/>
+                        filteredMarkers = {this.props.filteredMarkers}
+                        parent = {"EditMarkersContainer"}
+                        handleDelete = {this.handleDelete}/>
                     </div>
 
 

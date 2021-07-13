@@ -18,8 +18,8 @@ const ThumbnailMapComponent = (props) => {
     const [viewport, setViewport] = useState({
         latitude: averageLat,
         longitude: averageLng,
-        width: 600,
-        height: 400,
+        width: 300,
+        height: 200,
         zoom: 8,
     });
     
@@ -55,7 +55,7 @@ const ThumbnailMapComponent = (props) => {
             } else {
                 setViewport({
                     ...viewport,
-                    zoom: zoom-1,
+                    zoom: zoom-2,
                 });
             }
         }
@@ -75,7 +75,12 @@ const ThumbnailMapComponent = (props) => {
             onLoad = {() => updateZoom()}
                 mapboxApiAccessToken = {process.env.REACT_APP_MAPBOX_TOKEN}>
                 {props.filteredMarkers.map((location) => (
-                    <Marker key = {location.id} latitude = {location.latitude} longitude = {location.longitude}>
+                    <Marker 
+                    key = {location.id} 
+                    latitude = {location.latitude} 
+                    longitude = {location.longitude}
+                    offsetTop={-25}
+                    offsetLeft={-10}>
                         <button style = {{"background":"none", "border":"none"}}>
                             <img src="/MapIcons/mapbox-marker-icon-blue.svg"/>
                         </button>

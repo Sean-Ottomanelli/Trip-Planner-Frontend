@@ -153,28 +153,18 @@ export default class SuggestedTripsContainer extends Component {
             longitude:averageLon,
         })
     }
-    
 
-    updateClusterData = (minDistanceArray) => {
-        console.log("updateClusterData", minDistanceArray)
-        let newArrayOfClusterData = this.state.arrayOfClusterData.map(cluster => {
-        let pointsToAdd = minDistanceArray.filter(point => point.index === this.state.arrayOfClusterData.indexOf(cluster))
-            return ({
-                clusterArray: pointsToAdd,
-                latitude: pointsToAdd.length > 0 ? this.upDateCentroid(pointsToAdd).latitude : cluster.latitude,
-                longitude: pointsToAdd.length > 0 ? this.upDateCentroid(pointsToAdd).longitude : cluster.longitude
-            })
-        })
-        console.log(newArrayOfClusterData)
-        this.setState({
-            arrayOfClusterData:newArrayOfClusterData
-        })
+    sampleVariance = (clusterData) => {
+        let sampleVariance
+        if (clusterData.clusterArray.length > 1) {
+            sampleVariance = clusterData.clusterArray.map(dataPoint => (
+                Math.pow(this.haversineDistance(dataPoint.latitude, dataPoint.longitude, clusterData.latitude, clusterData.longitude),2)
+            )).reduce((total,next) => total + next, 0)/(clusterData.clusterArray.length - 1)
+        } else {
+            sampleVariance = 0
+        }
+        return sampleVariance
     }
-
-    varianceNumerator = (lat1d,lon1d,lat2d,lon2d) => {
-        Math.pow(this.haversineDistance(lat1d,lon1d,lat2d,lon2d),2)
-    }
-
 
     iterate = () => {
         //1) looks at each datapoint one at a time and records the distance between that point and all centroids. distances are stored
@@ -216,10 +206,12 @@ export default class SuggestedTripsContainer extends Component {
         
 
         let variance = newArrayOfClusterData.map(clusterData => (
-            clusterData.clusterArray.map(dataPoint => (
-                Math.pow(this.haversineDistance(dataPoint.latitude, dataPoint.longitude, clusterData.latitude, clusterData.longitude),2)
-            )).reduce((total,next) => total + next, 0)/(clusterData.clusterArray.length - 1)
-        ))
+            this.sampleVariance(clusterData)
+            // clusterData.clusterArray.map(dataPoint => (
+            //     Math.pow(this.haversineDistance(dataPoint.latitude, dataPoint.longitude, clusterData.latitude, clusterData.longitude),2)
+            // )).reduce((total,next) => total + next, 0)/(clusterData.clusterArray.length - 1)
+        )).reduce((total,next) => total + next, 0)
+        
 
         if(stopIteration.some(bool => bool == false)) {
         // if(JSON.stringify(this.state.arrayOfClusterData) != JSON.stringify(newArrayOfClusterData)) {
@@ -230,13 +222,28 @@ export default class SuggestedTripsContainer extends Component {
             setTimeout(() => this.iterate(), 10)
         } else {
             console.log("done")
-            console.log(newArrayOfClusterData)
-            console.log(variance)
+            this.seedClusterData(this.state.k)
+            console.log("seeds",this.state.arrayOfClusterData)
+            return ("test")
         }
         
     }
 
+    findOptimalClustering = () => {
+        
+        let clusteringResults = []
 
+        for( let i = 0; i < 10; i++){
+            let result = this.iterate()
+            clusteringResults[i] = {
+                result
+            }
+            
+        }
+
+        console.log(clusteringResults)
+
+    }
     
     
     render() {
@@ -284,7 +291,7 @@ export default class SuggestedTripsContainer extends Component {
                     trip days: <input onChange = {(e) => this.handleInputChange(e)} name = "k" value = {this.state.k}></input>
                 </label>
             </form>
-            <button onClick = {() => this.iterate(0)}>crunch numbers</button>
+            <button onClick = {() => this.findOptimalClustering()}>crunch numbers</button>
             </div>
         )
     }

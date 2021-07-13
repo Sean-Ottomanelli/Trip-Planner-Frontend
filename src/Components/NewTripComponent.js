@@ -23,7 +23,7 @@ export default class NewTripComponent extends Component {
                     <label>
                         Trip Description: <br/>
                         <textarea className = "large-text-box" 
-                        rows="10" 
+                        rows="5" 
                         name = "newTripDescription" 
                         value = {this.props.newTripDescription}></textarea>
                     </label >
