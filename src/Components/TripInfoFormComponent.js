@@ -30,7 +30,7 @@ export default class TripInfoFormComponent extends Component {
                 </div>
                 <div className = "editTripInputDiv">
                     <label>
-                        Completed <input onChange={(e) => this.props.handleCompleted(e)} name="visited" type="checkbox" defaultChecked={this.props.completed}/>
+                        Completed <input onChange={(e) => this.props.handleCompleted(e)} name="visited" type="checkbox" checked={this.props.completed}/>
                     </label>
                 </div>
             </form>

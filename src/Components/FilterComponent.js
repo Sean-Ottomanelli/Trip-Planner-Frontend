@@ -69,7 +69,7 @@ export default class FilterComponent extends Component {
                         value="Unvisited" 
                         checked={this.props.showUnvisited} 
                         onChange={(e) => this.props.unvisitedSelect(e)} /> 
-                        Unvisited
+                        UNVISITED
                     </label>
                 </div>
                 <div className = "filterParamsDiv">

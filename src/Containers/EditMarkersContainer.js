@@ -10,6 +10,7 @@ export default class EditMarkersContainer extends Component {
         super()
         this.state = {
             name:"",
+            image:"",
             category:"",
             visited: false,
             urgency: 5,
@@ -58,7 +59,8 @@ export default class EditMarkersContainer extends Component {
             user_rating: this.state.user_rating,
             latitude: coords[1],
             longitude: coords[0],
-            user_id: this.props.userId
+            user_id: this.props.userId,
+            image: this.state.image
         }
 
         let newUnvisitedMarker = {
@@ -68,7 +70,8 @@ export default class EditMarkersContainer extends Component {
             urgency: this.state.urgency,
             latitude: coords[1],
             longitude: coords[0],
-            user_id: this.props.userId
+            user_id: this.props.userId,
+            image: this.state.image
         }
 
         let newMarker = this.state.visited ? newVisitedMarker : newUnvisitedMarker
@@ -85,8 +88,8 @@ export default class EditMarkersContainer extends Component {
             })
         .then((r) => r.json())
         .then((newMarker) => {
-            this.props.addNewMarker(newMarker)
-            console.log("fetched")
+            newMarker.errors ? alert(newMarker.errors) : this.props.addNewMarker(newMarker)
+            console.log(newMarker.errors)
         });
     }
 
@@ -99,7 +102,7 @@ export default class EditMarkersContainer extends Component {
                     <div className = {"twenty-column"}>
                         <h2>EDIT MARKERS</h2>
                         <p>Fill in all of the fields below and click an empty location on the map to place a marker.</p>
-                        <p>To permanantly remove a marker click the marker on your map or press the delete button in the MY MARKERS list.</p>
+                        <p>To permanently remove a marker click the marker on your map or press the delete button in the MY MARKERS list.</p>
                         <NewMarkerComponent
                         userId = {this.props.userId}
                         handleInputChange = {this.handleInputChange}
@@ -131,7 +134,8 @@ export default class EditMarkersContainer extends Component {
                             {this.props.filteredMarkers.map(marker => <MarkerCardComponent
                             marker = {marker}
                             handleDelete = {this.handleDelete}
-                            parent = {"createMarkerContainer"}/>)}
+                            parent = {"createMarkerContainer"}
+                            updateMarkerInState = {this.props.updateMarkerInState}/>)}
                         </div>
                     </div>
                 </div>

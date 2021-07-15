@@ -20,6 +20,11 @@ export default class NewMarkerComponent extends Component {
                     </div>
                     <div className = "newMarkerParamsDiv">
                         <label>
+                            MARKER IMAGE:<br/><input onChange={(e) => this.props.handleInputChange(e)} name = "image" value = {this.props.image}/>
+                        </label>
+                    </div>
+                    <div className = "newMarkerParamsDiv">
+                        <label>
                             <input onChange={(e) => this.props.handleInputChange(e)} type = "radio" name = "category" value = "Restaurant"/>RESTAURANT
                         </label><br/>
                         <label>

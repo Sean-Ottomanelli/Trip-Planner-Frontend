@@ -76,7 +76,7 @@ textArea {
     width:fit-content;
     display: flex;
     justify-content: center;
-    margin-top: 20%;
+    margin-top: 30vh;
 }
 
 .twenty-column{
@@ -263,17 +263,19 @@ textArea {
     margin: 5px;
     border-radius: 5px;
     display: flex;
+    align-items: center;
+    height: 230px
 }
 
 .thumbnailImage{
-    height:200px;
-    width:200px;
+    height:230px;
+    width:230px;
     object-fit:cover;
 }
 
 .markerCardDetails{
     /* border: black 1px solid; */
-    padding: 10px;
+    padding-left: 10px;
     max-width: 300px;
     white-space: nowrap; 
     overflow: hidden;
@@ -305,18 +307,23 @@ textArea {
     height: fit-content;
 }
 
+.editMarkerParamsDiv{
+    margin-left:20px;
+    margin-right:20px;
+    /* border: black 1px solid; */
+}
+
+.centerButton{
+    text-align:center;
+    margin-top:20px;
+}
+
 .popUp{
     background-color: black;
     color: white;
     border: none;
     border-radius: 5px;
-
-
-
     height: 30px;
-
-
-
     min-width: 100px;
 }
 

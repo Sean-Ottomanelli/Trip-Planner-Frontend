@@ -153,6 +153,13 @@ class App extends Component{
     })
   }
 
+  updateMarkerInState = (updatedMarker) => {
+    let updatedMarkers = this.state.markers.map(marker => marker.id === updatedMarker.id ? updatedMarker : marker)
+    this.setState({
+      markers:updatedMarkers
+    })
+  }
+
   componentDidMount(){
     if (localStorage.token) {
       this.getUserData()
@@ -163,11 +170,10 @@ class App extends Component{
 
     let filteredMarkers = this.state.markers.filter(marker => {
     let categorySatisfied = false
-    if (this.state.showCategory.length !== 0) {
-      categorySatisfied = this.state.showCategory.some(category => category === marker.category)
-    } else {
-      categorySatisfied = true
-    }
+    categorySatisfied = this.state.showCategory.some(category => category === marker.category)
+    
+    
+    
     
     let visitedSatisfied = true
     if (marker.visited === true) {
@@ -250,7 +256,8 @@ class App extends Component{
               filteredMarkers = {filteredMarkers}
               userId = {this.state.userId}
               addNewMarker = {this.addNewMarker}
-              deleteMarker = {this.deleteMarker}/> 
+              deleteMarker = {this.deleteMarker}
+              updateMarkerInState = {this.updateMarkerInState}/> 
               : <LoginContainer {...routerProps} />}/>
 
             <Route path="/createtrip"
@@ -304,7 +311,8 @@ class App extends Component{
               deleteTrip = {this.deleteTrip}
               updateTripInState = {this.updateTripInState}
               trips = {this.state.trips}
-              markers = {this.state.markers}/> 
+              markers = {this.state.markers}
+              userId = {this.state.userId}/> 
               : <LoginContainer {...routerProps} />}/>
 
             <Route path="/viewtripdetails/:tripId"

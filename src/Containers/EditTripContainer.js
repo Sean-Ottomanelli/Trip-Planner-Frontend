@@ -108,15 +108,17 @@ export default class EditTripsContainer extends Component {
 
         saveTrip = () => {
             console.log(this.state)
+
             let updatedTrip = {
                 name: this.state.name,
                 description: this.state.description,
                 completed: this.state.completed,
                 id: this.state.id,
-                user_id: this.state.userId,
+                user_id: this.props.userId,
                 markers: this.state.markers,
                 destinations: this.state.destinations,
             }
+
             fetch(`http://localhost:3000/trips/${this.state.id}`, {
                 method: "PATCH",
                 headers: {
@@ -125,9 +127,13 @@ export default class EditTripsContainer extends Component {
                 },
                 body: JSON.stringify(updatedTrip),
             })
-            .then((r) => r.json(r))
-            .then(() => {
+            .then((r) => {
+                r.json(r)
+                console.log("what was sent",updatedTrip)
+            })
+            .then((newTripObj) => {
                 this.updateDestinations(this.state.destinations)
+                console.log("new trip obj fetch response", newTripObj)
             })
             .then(() => {
                 this.props.updateTripInState(updatedTrip)
@@ -147,7 +153,7 @@ export default class EditTripsContainer extends Component {
                 description: trip.description,
                 id: trip.id,
                 completed: trip.completed,
-                user_id:trip.user_id
+                user_id:this.props.userId
             })
         }
 
@@ -187,7 +193,7 @@ export default class EditTripsContainer extends Component {
                     </div>
 
                     
-                    <div className = {"fourty-column"}>
+                    <div className = {"fourty-column scroll"}>
                         {this.state.markers.map(marker => <MarkerCardComponent 
                         marker = {marker}
                         handleDelete = {this.removeFromTrip}

@@ -31,7 +31,7 @@ const MapComponent = (props) => {
                 mapboxApiAccessToken = {process.env.REACT_APP_MAPBOX_TOKEN}
                 // mapStyle = "mapbox://styles/sean-ottomanelli/ckqjw73i70wgc17qsreljy7t8"
                 onClick = {(map) => {
-                    props.handleClick(map.lngLat)
+                    selectedMarker === null ? props.handleClick(map.lngLat) : console.log("null")
                 }}
                 onViewportChange = {(viewport) => {
                     setViewport(viewport);
@@ -48,12 +48,14 @@ const MapComponent = (props) => {
                             e.preventDefault()
                             setSelectedMarker(location)
                         }}
-                        onClick = {props.allowAddToTrip 
+                        onMouseLeave = {() => setSelectedMarker(null)}
+                        onClick = {props.allowAddToTrip
                         ? () => props.addToTrip(location)
-                        : props.parent === "EditMarkersContainer" ? () => {
+                        : props.parent === "EditMarkersContainer"
+                        ? () => {
                             props.handleDelete(location)
-                            setSelectedMarker(null)
-                            } : null}>
+                            setTimeout(() => setSelectedMarker(null),500)}
+                        : null }>
         
                             {!props.selectedDestinations
                             ? <img src="/MapIcons/mapbox-marker-icon-blue.svg" />
@@ -81,6 +83,7 @@ const MapComponent = (props) => {
                 ? (<Popup 
                 latitude = {selectedMarker.latitude} 
                 longitude = {selectedMarker.longitude}
+                closeOnClick={false}
                 offsetTop = {-25}
                 onClose = {() => {
                     setSelectedMarker(null)
