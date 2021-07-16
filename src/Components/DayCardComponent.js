@@ -16,7 +16,7 @@ export default class DayCardComponent extends Component {
         return (
             <div className = "tripCard">
                 <div className = "tripCardTitle">
-                    <h3 className = "noMargin">{this.props.day.name}</h3>
+                    <h3 className = "noMargin">{this.props.day.dayName}</h3>
                 </div>
                 <div className = "tripCardMap">
                     <ThumbnailMapComponent

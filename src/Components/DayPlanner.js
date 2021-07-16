@@ -162,7 +162,7 @@ export default class DayPlanner extends Component {
         
         for( let i = 0; i < parseInt(this.state.k); i++){
             initialDaysArray[i] ={
-                dayName: `Day ${i + 1}`,
+                dayName: `DAY ${i + 1}`,
                 clusterArray:[],
                 latitude: this.getRandomSeedCoordinates(allMarkers)[0],
                 longitude: this.getRandomSeedCoordinates(allMarkers)[1]}
@@ -239,16 +239,22 @@ export default class DayPlanner extends Component {
     render() {
         return (
             <div>
-                <h2>DAY PLANNER</h2>
+                <div className = "dayPlannerContainer">
+                    <h2>DAY PLANNER</h2>
                     <form>
                         <label>
-                            trip days: <input onChange = {(e) => this.handleInputChange(e)} name = "k" value = {this.state.k}></input>
+                            LENGTH OF TRIP (DAYS): <input onChange = {(e) => this.handleInputChange(e)} name = "k" value = {this.state.k}></input>
                         </label>
                     </form>
-                <button className = "navigational" onClick = {() => this.getArrays()}>PLAN DAYS</button>
-                {this.state.plannedDays.length > 0 
-                ? this.state.plannedDays.map(day => <DayCardComponent day = {day}/>)
-            : null}
+                    <div className="dayCardButton">
+                        <button className = "navigational" onClick = {() => this.getArrays()}>PLAN DAYS</button>
+                    </div>
+                </div>
+                <div className = "dayCardContainer">
+                    {this.state.plannedDays.length > 0 
+                    ? this.state.plannedDays.map(day => <DayCardComponent day = {day}/>)
+                    : null}
+                </div>
             </div>
             
         )

@@ -336,3 +336,25 @@ textArea {
     margin-top:5px;
     margin-bottom:5px;
 }
+
+.dayPlannerContainer{
+    border-top: lightgray solid 1px;
+    margin-top: 40px;
+    margin-left: 5vw;
+    margin-right: 5vw;
+    display: flex;
+    flex-direction: column;
+    text-align:center;
+}
+
+.dayCardContainer{
+    /* border: black solid 1px; */
+    width: 100vw;
+    overflow: scroll;
+    display:flex
+
+}
+
+.dayCardButton{
+    padding-top:20px
+}
