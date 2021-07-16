@@ -51,9 +51,9 @@ export default class MainMapContainer extends Component {
                             <Link to="/mytrips">
                                 <button className = "navigational">MY TRIPS</button>
                             </Link><br/>
-                            <Link to="/suggestedtrips">
+                            {/* <Link to="/suggestedtrips">
                                 <button className = "navigational">SUGGESTED TRIPS</button>
-                            </Link>
+                            </Link> */}
                         </div>
                     </div>
 

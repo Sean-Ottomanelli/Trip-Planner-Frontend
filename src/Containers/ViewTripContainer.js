@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import MapComponent from "../Components/MapComponent";
 import { Link } from "react-router-dom";
 import MarkerCardComponent from "../Components/MarkerCardComponent";
+import DayPlanner from "../Components/DayPlanner";
 
 
 export default class ViewTripContainer extends Component {
@@ -9,7 +10,8 @@ export default class ViewTripContainer extends Component {
     constructor() {
         super()
         this.state = {
-            trip: {}
+            trip: {},
+            showDayPlanner: false
         }  
     }
 
@@ -46,11 +48,14 @@ export default class ViewTripContainer extends Component {
                         </div>
                         <div className = "tripDetailsDiv">
                         <Link to="/mytrips">
-                            <button className = "navigational">Return to My Trips</button>
+                            <button className = "navigational">RETURN TO MY TRIPS</button>
                         </Link><br/>
                         <Link to={`/edittripdetails/${this.props.match.params.tripId}`}>
-                            <button className = "navigational">Edit Trip</button>
-                        </Link>
+                            <button className = "navigational">EDIT TRIP</button>
+                        </Link><br/>
+                        
+                        <button onClick = {() => this.setState({showDayPlanner: !this.state.showDayPlanner})} className = "navigational">DAY PLANNER</button>
+                        
                         </div>
                     </div>
 
@@ -70,6 +75,9 @@ export default class ViewTripContainer extends Component {
                     </div>
                 </div> 
                 : null}
+
+                {this.state.showDayPlanner ? <DayPlanner
+                trip = {this.state.trip}/> : null}
                 
 
 
